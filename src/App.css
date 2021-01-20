@@ -6,4 +6,5 @@ textarea {
   width: calc(100% - 10px);
   margin: 5px;
   box-sizing: border-box;
+  font-size: 20px;
 }

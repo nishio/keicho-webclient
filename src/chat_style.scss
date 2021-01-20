@@ -8,7 +8,6 @@
 $titleColor: #273246; //タイトル背景色
 $baseColor: #7494c0; // 背景色
 $myTextColor: #8de055; // 吹き出しの色
-
 /*///////////////////////////////////////////////*/
 
 .line__container {
@@ -45,16 +44,16 @@ $myTextColor: #8de055; // 吹き出しの色
 
     /* 相手の会話 */
     .line__left {
-      width: 100%;
+      // width: 100%;
       position: relative;
       display: block;
-      margin-bottom: 5px;
-      max-width: 90%;
+      // margin-bottom: 5px;
+      max-width: calc(100% - 15px);
       clear: both;
 
       /* アイコン画像 */
       figure {
-        width: 50px;
+        width: 32px;
         position: absolute;
         // top: 15px;
         left: 0;
@@ -63,14 +62,14 @@ $myTextColor: #8de055; // 吹き出しの色
         /* 正方形を用意 */
         img {
           border-radius: 50%;
-          width: 50px;
-          height: 50px;
+          width: 32px;
+          height: 32px;
           background-color: white;
         }
       }
 
       .line__left-text {
-        margin-left: 70px;
+        margin-left: calc(32px + 15px);
 
         .name {
           font-size: 80%;
@@ -92,7 +91,7 @@ $myTextColor: #8de055; // 吹き出しの色
           width: 0;
           height: 0;
           left: -10px;
-          top: 10px;
+          top: 5px;
           border-right: 20px solid #ffffff;
           border-top: 10px solid transparent;
           border-bottom: 10px solid transparent;
@@ -103,8 +102,12 @@ $myTextColor: #8de055; // 吹き出しの色
     .line__right {
       position: relative;
       display: block;
-      margin: 5px 0;
-      max-width: 90%;
+      margin-right: 5px;
+      margin-left: calc(15px + 32px);
+      margin-top: 5px;
+      margin-bottom: 5px;
+
+      max-width: 100%;
       float: right;
       margin-right: 15px;
       clear: both;
