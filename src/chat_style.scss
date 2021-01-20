@@ -1,0 +1,152 @@
+@charset "UTF-8";
+
+/*/////////////////////////////////////////////////
+//LINE風チャット画面(会話方式)を記事に表示する方法
+/////////////////////////////////////////////////*/
+
+// color
+$titleColor:   #273246; //タイトル背景色
+$baseColor:    #7494c0; // 背景色
+$myTextColor:  #8de055; // 吹き出しの色
+
+/*///////////////////////////////////////////////*/
+
+.line__container {
+  padding:0;
+  background: $baseColor;
+  overflow: hidden;
+  max-width: 400px;
+  margin: 20px auto;
+  font-size: 80%;
+
+   /* タイトル部分 */
+  .line__title {
+    background: $titleColor;
+    padding: 10px;
+    text-align: center;
+    font-size: 150%;
+    color: #ffffff;
+  }
+  /* スタンプ画像最大幅 */
+   .stamp img {
+    max-width:150px;
+  }
+
+  /* 会話部分 */
+  .line__contents {
+    padding: 10px;
+    overflow: hidden;
+    line-height: 135%;
+
+    &.scroll {
+      height: 500px;
+      overflow-y: scroll;
+    }
+
+    /* 相手の会話 */
+    .line__left {
+      width: 100%;
+      position: relative;
+      display: block;
+      margin-bottom: 5px;
+      max-width: 80%;
+      clear: both;
+
+      /* アイコン画像 */
+      figure {
+        width: 50px;
+        position: absolute;
+        top: 15px;
+        left: 0;
+        padding: 0;
+        margin: 0;
+        /* 正方形を用意 */
+        img{
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+        }
+      }
+
+      .line__left-text {
+        margin-left: 70px;
+
+        .name {
+          font-size: 80%;
+          color: #ffffff;
+        }
+      }
+      /* コメントエリア */
+      .text {
+        margin: 0;
+        position: relative;
+        padding: 10px;
+        border-radius: 20px;
+        background-color: #ffffff;
+        /* 吹き出し */
+        &::after {
+          content: '';
+          position: absolute;
+          display: block;
+          width: 0;
+          height: 0;
+          left: -10px;
+          top: 10px;
+          border-right: 20px solid #ffffff;
+          border-top: 10px solid transparent;
+          border-bottom: 10px solid transparent;
+        }
+
+      }
+     }
+      /* 自分の会話 */
+      .line__right {
+        position: relative;
+        display: block;
+        margin: 5px 0;
+        max-width: 75%;
+        float: right;
+        margin-right: 15px;
+        clear: both;
+        /* コメントエリア */
+        .text {
+          padding: 10px;
+          border-radius: 20px;
+          background-color: $myTextColor;
+          margin: 0;
+          margin-left: 80px;
+          /* 吹き出し */
+          &::after {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            right: -10px;
+            top: 10px;
+            border-left: 20px solid $myTextColor;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+          }
+
+        }
+        /* 自分がスタンプを送る時 */
+        .stamp {
+          position: relative;
+          margin-left: 80px;
+        }
+        /* 既読エリア */
+        .date {
+          content: '';
+          position: absolute;
+          display: block;
+          width: 100px;
+          text-align: right;
+          left: -30px;
+          bottom: 0px;
+          font-size: 80%;
+          color: #ffffff;
+        }
+      }
+  }
+}

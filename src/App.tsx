@@ -1,26 +1,38 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Menu from "./Menu";
+import { Avatar, TextareaAutosize } from "@material-ui/core";
+import "./chat_style.scss";
 
 function App() {
   return (
     <div className="App">
       <Menu />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="line__container">
+        <div className="line__contents">
+          <div className="line__left">
+            <figure>
+              <img
+                alt="nisbot"
+                src="https://i.gyazo.com/a2f9513decfd964746c44b41dd88282a.png"
+              ></img>
+            </figure>
+            <div className="line__left-text">
+              <div className="name">nisbot</div>
+              <div className="text">
+                あなたはこの会話で何が起きて欲しいですか？
+              </div>
+            </div>
+          </div>
+          <div className="line__right">
+            <div className="text">
+              聞き出しチャットシステムが現状どうなってるかのデモをしたい
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <TextareaAutosize aria-label="empty textarea" placeholder="Empty" />
     </div>
   );
 }
