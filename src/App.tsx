@@ -3,7 +3,6 @@ import "./App.css";
 import Menu from "./Menu";
 import { TextareaAutosize } from "@material-ui/core";
 import { ChatLine } from "./ChatContents";
-import { textChangeRangeIsUnchanged } from "typescript";
 
 function App() {
   const [logs, setLogs] = useState([
@@ -31,7 +30,24 @@ function App() {
       target.value = "";
       e.preventDefault();
       if (text !== "") {
-        setLogs([...logs, { text: text, user: true }]);
+        const newLogs = [...logs, { text: text, user: true }];
+        setLogs(newLogs);
+        // send to server
+        const data = { user: "test", talk: "test", text: text };
+        const API = "https://keicho.herokuapp.com/api/web/";
+        fetch(API, {
+          mode: "cors",
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((response) => {
+          console.log(response);
+          response.json().then((data) => {
+            setLogs([...newLogs, { text: data.text, user: false }]);
+          });
+        });
       }
     }
   };
