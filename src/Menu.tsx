@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ButtonAppBar() {
   const classes = useStyles();
 
+  const onClickMenu = () => {
+    alert("no menu yet");
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -36,6 +40,7 @@ export default function ButtonAppBar() {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
+            onClick={onClickMenu}
           >
             <MenuIcon />
           </IconButton>
