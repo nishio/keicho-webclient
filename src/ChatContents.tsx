@@ -24,11 +24,11 @@ export const ChatRight = (props: { children: ReactNode }) => {
 
 type TLog = { user: boolean; text: string };
 export const ChatLine = (props: { logs: TLog[] }) => {
-  const items = props.logs.map((x: TLog) => {
+  const items = props.logs.map((x: TLog, i: number) => {
     if (x.user) {
-      return <ChatRight>{x.text}</ChatRight>;
+      return <ChatRight key={i}>{x.text}</ChatRight>;
     } else {
-      return <ChatLeft>{x.text}</ChatLeft>;
+      return <ChatLeft key={i}>{x.text}</ChatLeft>;
     }
   });
   return (
