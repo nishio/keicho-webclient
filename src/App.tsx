@@ -28,7 +28,7 @@ function App() {
         ]}
       ></ChatLine>
 
-      <TextareaAutosize aria-label="empty textarea" placeholder="Empty" />
+      <TextareaAutosize aria-label="empty textarea" placeholder="" />
     </div>
   );
 }

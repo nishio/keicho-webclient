@@ -7,4 +7,6 @@ textarea {
   margin: 5px;
   box-sizing: border-box;
   font-size: 20px;
+  border-radius: 17px;
+  padding: 0 10px;
 }
