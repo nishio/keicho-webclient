@@ -1,27 +1,37 @@
-import React, { KeyboardEventHandler, useState } from "react";
+import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import "./App.css";
 import Menu from "./Menu";
 import { TextareaAutosize } from "@material-ui/core";
 import { ChatLine } from "./ChatContents";
+import { PRESET_LOGS } from "./PRESET_LOGS";
 
+const USE_LOCAL_SERVER = false;
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
+const APIROOT =
+  IS_PRODUCTION || !USE_LOCAL_SERVER
+    ? "https://keicho.herokuapp.com/api/"
+    : "http://localhost:5000/api/";
+
+const USE_PRESET = false;
+const INITIAL_LOGS = [
+  { text: "あなたはこの会話で何が起きて欲しいですか？", user: false },
+];
+let TalkID: string = "";
 function App() {
-  const [logs, setLogs] = useState([
-    { text: "あなたはこの会話で何が起きて欲しいですか？", user: false },
-    {
-      text: "聞き出しチャットシステムが現状どうなってるかのデモをしたい",
-      user: true,
-    },
-    {
-      text: "そのチャットシステムについて、他に何かありますか？",
-      user: false,
-    },
-    {
-      text:
-        "近々 Web UI を作る予定なのだけど、現状の Mattermost 版をデモしたい",
-      user: true,
-    },
-    { text: "その現状について、他に何かありますか？", user: false },
-  ]);
+  const [logs, setLogs] = useState(USE_PRESET ? PRESET_LOGS : INITIAL_LOGS);
+
+  useEffect(() => {
+    fetch(APIROOT + "web/create", {
+      mode: "cors",
+      method: "GET",
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((text) => {
+        TalkID = text;
+      });
+  }, []);
 
   const onKeyPress: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
     if (e.key === "Enter") {
@@ -33,9 +43,8 @@ function App() {
         const newLogs = [...logs, { text: text, user: true }];
         setLogs(newLogs);
         // send to server
-        const data = { user: "test", talk: "test", text: text };
-        const API = "https://keicho.herokuapp.com/api/web/";
-        fetch(API, {
+        const data = { user: "nobody", talk: TalkID, text: text };
+        fetch(APIROOT + "web/", {
           mode: "cors",
           method: "POST",
           body: JSON.stringify(data),
