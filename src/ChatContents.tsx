@@ -1,6 +1,23 @@
 import { ReactNode } from "react";
 import "./chat_style.scss";
 import BotIcon from "./icons8-bot-32.png";
+
+const pretty = (text: string) => {
+  const ret: ReactNode[] = [];
+  text = text.trim();
+  text.split("\n\n").forEach((x, i) => {
+    if (i > 0) {
+      ret.push(<hr key={i} />);
+    }
+    x.split("\n").forEach((x, j) => {
+      if (j > 0) {
+        ret.push(<br key={`${i}-${j}`} />);
+      }
+      ret.push(x.trim());
+    });
+  });
+  return ret;
+};
 export const ChatLeft = (props: { children: ReactNode }) => {
   return (
     <div className="line__left">
@@ -8,7 +25,7 @@ export const ChatLeft = (props: { children: ReactNode }) => {
         <img alt="nisbot" src={BotIcon}></img>
       </figure>
       <div className="line__left-text">
-        <div className="text">{props.children}</div>
+        <div className="text">{pretty(props.children as string)}</div>
       </div>
     </div>
   );
@@ -17,7 +34,7 @@ export const ChatLeft = (props: { children: ReactNode }) => {
 export const ChatRight = (props: { children: ReactNode }) => {
   return (
     <div className="line__right">
-      <div className="text">{props.children}</div>
+      <div className="text">{pretty(props.children as string)}</div>
     </div>
   );
 };
