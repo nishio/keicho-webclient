@@ -8,9 +8,8 @@ export const ShowLog = (props: { talk: string }) => {
   const [logs, setLogs] = useState(LOADING);
 
   useEffect(() => {
-    const key = props.talk;
     db.collection("yagokoro_env")
-      .doc(key)
+      .doc(props.talk)
       .get()
       .then((doc: any) => {
         if (doc.exists) {
@@ -32,7 +31,7 @@ export const ShowLog = (props: { talk: string }) => {
           console.log("No such document!");
         }
       });
-  }, []);
+  }, [props.talk]);
   return (
     <div className="App">
       <Menu />
