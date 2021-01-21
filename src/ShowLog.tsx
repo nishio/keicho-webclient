@@ -4,21 +4,20 @@ import db from "./FirestoreIO";
 import Menu from "./Menu";
 const LOADING = [{ text: "過去の会話データを読み込み中です...", user: false }];
 
-export const ShowLog = () => {
+export const ShowLog = (props: { talk: string }) => {
   const [logs, setLogs] = useState(LOADING);
 
   useEffect(() => {
-    const key = "I9IlVW6Xt58NlNHAjdfq";
-    console.log("reading", key);
+    const key = props.talk;
     db.collection("yagokoro_env")
       .doc(key)
       .get()
       .then((doc: any) => {
         if (doc.exists) {
           const data = doc.data();
-          console.log(data);
           const x = JSON.parse(data.json);
-          console.log(x);
+          // @ts-ignore
+          window.debug = x;
 
           setLogs(
             x.log.map((x: any) => {

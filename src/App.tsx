@@ -18,7 +18,8 @@ export const INITIAL_LOGS = [
 function App() {
   const hash = new URLSearchParams(window.location.hash.substring(1));
   if (hash.has("talk")) {
-    return <ShowLog />;
+    const talk = hash.get("talk") as string;
+    return <ShowLog talk={talk} />;
   } else {
     return <NewTalk />;
   }
