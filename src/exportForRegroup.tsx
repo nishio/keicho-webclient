@@ -1,3 +1,5 @@
+import { openRegroupDialog } from "./RegroupDialog";
+
 export const exportForRegroup = () => {
-  alert("ok");
+  openRegroupDialog();
 };

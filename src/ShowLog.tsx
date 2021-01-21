@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ChatLine } from "./ChatContents";
 import db from "./FirestoreIO";
 import Menu from "./Menu";
+import { RegroupDialog } from "./RegroupDialog";
 const LOADING = [{ text: "過去の会話データを読み込み中です...", user: false }];
 
 export const ShowLog = (props: { talk: string }) => {
@@ -36,6 +37,7 @@ export const ShowLog = (props: { talk: string }) => {
     <div className="App">
       <Menu />
       <ChatLine logs={logs}></ChatLine>
+      <RegroupDialog />
     </div>
   );
 };
