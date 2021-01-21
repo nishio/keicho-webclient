@@ -2,10 +2,7 @@ import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Menu, MenuItem } from "@material-ui/core";
-
-const exportForRegroup = () => {
-  alert("ok");
-};
+import { exportForRegroup } from "./exportForRegroup";
 
 export const DropdownMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
