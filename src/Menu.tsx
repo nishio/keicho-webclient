@@ -11,21 +11,30 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
     },
-    menuButton: {
-      // marginLeft: theme.spacing(2),
-    },
     title: {
       flexGrow: 1,
     },
   })
 );
 
-export default function ButtonAppBar() {
-  const classes = useStyles();
-
+const DropdownMenu = () => {
   const onClickMenu = () => {
     alert("no menu yet");
   };
+
+  return (
+    <IconButton
+      edge="end"
+      color="inherit"
+      aria-label="menu"
+      onClick={onClickMenu}
+    >
+      <MenuIcon />
+    </IconButton>
+  );
+};
+export default function ButtonAppBar() {
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -34,16 +43,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Keicho
           </Typography>
-
-          <IconButton
-            edge="end"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={onClickMenu}
-          >
-            <MenuIcon />
-          </IconButton>
+          <DropdownMenu />
         </Toolbar>
       </AppBar>
     </div>
