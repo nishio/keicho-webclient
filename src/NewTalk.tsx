@@ -3,7 +3,9 @@ import Menu from "./Menu";
 import { TextareaAutosize } from "@material-ui/core";
 import { ChatLine } from "./ChatContents";
 import { PRESET_LOGS } from "./PRESET_LOGS";
-import { USE_PRESET, INITIAL_LOGS, APIROOT, TalkID } from "./App";
+import { USE_PRESET, INITIAL_LOGS, APIROOT } from "./App";
+
+export let TalkID: string = "";
 
 export const NewTalk = () => {
   const [logs, setLogs] = useState(USE_PRESET ? PRESET_LOGS : INITIAL_LOGS);

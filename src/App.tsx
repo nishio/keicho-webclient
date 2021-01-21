@@ -13,7 +13,6 @@ export const USE_PRESET = false;
 export const INITIAL_LOGS = [
   { text: "あなたはこの会話で何が起きて欲しいですか？", user: false },
 ];
-export let TalkID: string = "";
 
 const ShowLog = () => {
   return <br />;
