@@ -3,7 +3,10 @@ import { ChatLine } from "./ChatContents";
 import db from "./FirestoreIO";
 import Menu from "./Menu";
 import { RegroupDialog } from "./RegroupDialog";
+
 const LOADING = [{ text: "過去の会話データを読み込み中です...", user: false }];
+
+export let talkObject: any;
 
 export const ShowLog = (props: { talk: string }) => {
   const [logs, setLogs] = useState(LOADING);
@@ -17,7 +20,8 @@ export const ShowLog = (props: { talk: string }) => {
           const data = doc.data();
           const x = JSON.parse(data.json);
           // @ts-ignore
-          window.debug = x;
+          window.debug = x; // for easy debug
+          talkObject = x;
 
           setLogs(
             x.log.map((x: any) => {

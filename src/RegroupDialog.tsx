@@ -10,8 +10,9 @@ export let openRegroupDialog: any;
 
 export const RegroupDialog = () => {
   const [open, setOpen] = React.useState(false);
-
-  openRegroupDialog = () => {
+  const [text, setText] = React.useState("");
+  openRegroupDialog = (lines: string[]) => {
+    setText(lines.join("\n"));
     setOpen(true);
   };
 
@@ -35,6 +36,7 @@ export const RegroupDialog = () => {
             autoFocus
             id="multiline"
             style={{ width: "100%" }}
+            value={text}
             // rowsMin={30}
             // onChange={onChange}
           />
