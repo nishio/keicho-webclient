@@ -16,18 +16,18 @@ export const DropdownMenu = () => {
   const handleClose = (event: React.MouseEvent<HTMLLIElement>) => {
     setAnchorEl(null);
   };
-  const MyMenuItem = (props: any) => {
+  const MyMenuItem = React.forwardRef((props: any, ref) => {
     const { children, onClick, ...other } = props;
     const f = () => {
       onClick();
       setAnchorEl(null);
     };
     return (
-      <MenuItem onClick={f} {...other}>
+      <MenuItem onClick={f} {...other} ref={ref}>
         {children}
       </MenuItem>
     );
-  };
+  });
   return (
     <>
       <IconButton
