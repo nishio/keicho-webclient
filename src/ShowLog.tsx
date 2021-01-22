@@ -3,6 +3,7 @@ import { ChatLine } from "./ChatContents";
 import db from "./FirestoreIO";
 import Menu from "./Menu";
 import { RegroupDialog } from "./RegroupDialog";
+import { ScrapboxDialog } from "./ScrapboxDialog";
 
 const LOADING = [{ text: "過去の会話データを読み込み中です...", user: false }];
 
@@ -42,6 +43,7 @@ export const ShowLog = (props: { talk: string }) => {
       <Menu />
       <ChatLine logs={logs}></ChatLine>
       <RegroupDialog />
+      <ScrapboxDialog />
     </div>
   );
 };

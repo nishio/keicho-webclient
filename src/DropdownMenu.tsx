@@ -3,11 +3,10 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Menu, MenuItem } from "@material-ui/core";
 import { exportForRegroup } from "./exportForRegroup";
+import { showLog } from "./showLog.1";
 import { TalkID } from "./NewTalk";
+import { exportForScrapbox } from "./exportForScrapbox";
 
-const showLog = () => {
-  window.open(`#talk=${TalkID}`, "_blank");
-};
 export const DropdownMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -47,13 +46,15 @@ export const DropdownMenu = () => {
         onClose={handleClose}
       >
         <MyMenuItem onClick={exportForRegroup}>Export for Regroup</MyMenuItem>
-        <MyMenuItem onClick={handleClose} disabled>
-          Export for Scrapbox
-        </MyMenuItem>
+        <MyMenuItem onClick={exportForScrapbox}>Export for Scrapbox</MyMenuItem>
         <MyMenuItem onClick={handleClose} disabled>
           Export as Text
         </MyMenuItem>
-        <MyMenuItem onClick={showLog}>Show log</MyMenuItem>
+        {TalkID !== "" ? (
+          <MyMenuItem onClick={showLog}>Show log</MyMenuItem>
+        ) : (
+          ""
+        )}
       </Menu>
     </>
   );
