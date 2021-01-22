@@ -20,8 +20,10 @@ export const ScrapboxDialog = () => {
     if (talkObject === undefined) {
       return;
     }
+    if (!open) {
+      return;
+    }
     talkObject.log.forEach((x: any, i: number) => {
-      console.log(i, x);
       const [user, text] = x;
       if (user) {
         lines.push(humanIcon + text);
@@ -37,7 +39,7 @@ export const ScrapboxDialog = () => {
       }
     });
     setText(lines.join("\n"));
-  }, [roboIcon, humanIcon, talkObject]);
+  }, [roboIcon, humanIcon, open]);
 
   openScrapboxDialog = () => {
     setOpen(true);
@@ -45,6 +47,13 @@ export const ScrapboxDialog = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const onChangeRoboIcon = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRoboIcon(e.target.value);
+  };
+  const onChangeHumanIcon = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHumanIcon(e.target.value);
   };
 
   return (
@@ -59,13 +68,27 @@ export const ScrapboxDialog = () => {
         <DialogTitle id="form-dialog-title">Export for Scrapbox</DialogTitle>
         <DialogContent style={{ padding: "0px 24px" }}>
           {/* <DialogContentText>...</DialogContentText> */}
+          <p>
+            Robo Icon:{" "}
+            <input
+              type="text"
+              defaultValue={roboIcon}
+              onChange={onChangeRoboIcon}
+            ></input>
+          </p>
+          <p>
+            Human Icon:{" "}
+            <input
+              type="text"
+              defaultValue={humanIcon}
+              onChange={onChangeHumanIcon}
+            ></input>
+          </p>
           <TextareaAutosize
             autoFocus
             id="multiline"
             style={{ width: "100%" }}
             value={text}
-            // rowsMin={30}
-            // onChange={onChange}
           />
         </DialogContent>
         <DialogActions>
