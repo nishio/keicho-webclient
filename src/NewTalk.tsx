@@ -43,21 +43,9 @@ export const NewTalk = () => {
       if (text !== "") {
         const newLogs = [...logs, { text: text, user: true }];
         setLogs(newLogs);
+
         // send to server
-        const data = { user: "nobody", talk: TalkID, text: text };
-        fetch(APIROOT + "web/", {
-          mode: "cors",
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }).then((response) => {
-          console.log(response);
-          response.json().then((data) => {
-            setLogs([...newLogs, { text: data.text, user: false }]);
-          });
-        });
+        sendToServer(text, setLogs, newLogs);
       }
     }
   };
@@ -80,3 +68,31 @@ export const NewTalk = () => {
     </div>
   );
 };
+
+function sendToServer(
+  text: string,
+  setLogs: React.Dispatch<
+    React.SetStateAction<{ text: string; user: boolean }[]>
+  >,
+  newLogs: { text: string; user: boolean }[]
+) {
+  if (TalkID !== "") {
+    const data = { user: "nobody", talk: TalkID, text: text };
+    fetch(APIROOT + "web/", {
+      mode: "cors",
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      console.log(response);
+      response.json().then((data) => {
+        setLogs([...newLogs, { text: data.text, user: false }]);
+      });
+    });
+  } else {
+    // bot is sleeping
+    setTimeout(sendToServer, 1000, [text, setLogs, newLogs]);
+  }
+}
