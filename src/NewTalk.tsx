@@ -4,33 +4,15 @@ import { Button, IconButton, TextareaAutosize } from "@material-ui/core";
 import { ChatLine } from "./ChatContents";
 import { PRESET_LOGS } from "./PRESET_LOGS";
 import { USE_PRESET, INITIAL_LOGS, APIROOT } from "./App";
+import { scrollToBottom } from "./scrollToBottom";
 
 export let TalkID: string = "";
-
-const scrollToBottom = () => {
-  const e = document.getElementById("bottom") as HTMLElement;
-  const y = e.offsetTop - document.documentElement.clientHeight + 300;
-  if (y > 0) {
-    window.scrollTo(0, y);
-  }
-};
 
 export const NewTalk = () => {
   const [logs, setLogs] = useState(USE_PRESET ? PRESET_LOGS : INITIAL_LOGS);
   const [lastKeywords, setLastKeywords] = useState([] as string[]);
 
-  useEffect(() => {
-    fetch(APIROOT + "web/create", {
-      mode: "cors",
-      method: "GET",
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((text) => {
-        TalkID = text;
-      });
-  }, []);
+  useEffect(getNewTalkID, []);
 
   // when log changed, scroll to bottom after the component rendered
   useEffect(scrollToBottom, [logs]);
@@ -50,8 +32,6 @@ export const NewTalk = () => {
   const enter = (text: string) => {
     const newLogs = [...logs, { text: text, user: true }];
     setLogs(newLogs);
-
-    // send to server
     sendToServer(text, setLogs, setLastKeywords, newLogs);
   };
 
@@ -69,6 +49,7 @@ export const NewTalk = () => {
       </Button>
     );
   });
+
   return (
     <div className="App">
       <Menu />
@@ -120,3 +101,16 @@ function sendToServer(
     setTimeout(sendToServer, 1000, [text, setLogs, newLogs]);
   }
 }
+
+const getNewTalkID = () => {
+  fetch(APIROOT + "web/create", {
+    mode: "cors",
+    method: "GET",
+  })
+    .then((response) => {
+      return response.text();
+    })
+    .then((text) => {
+      TalkID = text;
+    });
+};
