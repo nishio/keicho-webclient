@@ -2,8 +2,8 @@ import React from "react";
 import "./App.css";
 import { NewTalk } from "./NewTalk";
 import { ShowLog } from "./ShowLog";
+import { USE_LOCAL_SERVER } from "./USE_LOCAL_SERVER";
 
-const USE_LOCAL_SERVER = false;
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 export const APIROOT =
   IS_PRODUCTION || !USE_LOCAL_SERVER
