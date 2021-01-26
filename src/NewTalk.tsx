@@ -5,9 +5,9 @@ import { ChatLine } from "./ChatContents";
 import { PRESET_LOGS } from "./PRESET_LOGS";
 import { USE_PRESET, INITIAL_LOGS, APIROOT } from "./App";
 import { scrollToBottom } from "./scrollToBottom";
+import { BOT_IS_SLEEPING } from "./BOT_IS_SLEEPING";
 
 export let TalkID: string = "";
-
 export const NewTalk = () => {
   const [logs, setLogs] = useState(USE_PRESET ? PRESET_LOGS : INITIAL_LOGS);
   const [lastKeywords, setLastKeywords] = useState([] as string[]);
@@ -90,7 +90,6 @@ function sendToServer(
         "Content-Type": "application/json",
       },
     }).then((response) => {
-      console.log(response);
       response.json().then((data) => {
         setLogs([...newLogs, { text: data.text, user: false }]);
         setLastKeywords(data.last_kw);
@@ -98,7 +97,11 @@ function sendToServer(
     });
   } else {
     // bot is sleeping
-    setTimeout(sendToServer, 1000, [text, setLogs, newLogs]);
+    setLogs([...newLogs, BOT_IS_SLEEPING]);
+
+    setTimeout(() => {
+      sendToServer(text, setLogs, setLastKeywords, newLogs);
+    }, 1000);
   }
 }
 
