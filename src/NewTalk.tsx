@@ -1,6 +1,6 @@
 import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import Menu from "./Menu";
-import { TextareaAutosize } from "@material-ui/core";
+import { Button, IconButton, TextareaAutosize } from "@material-ui/core";
 import { ChatLine } from "./ChatContents";
 import { PRESET_LOGS } from "./PRESET_LOGS";
 import { USE_PRESET, INITIAL_LOGS, APIROOT } from "./App";
@@ -17,6 +17,7 @@ const scrollToBottom = () => {
 
 export const NewTalk = () => {
   const [logs, setLogs] = useState(USE_PRESET ? PRESET_LOGS : INITIAL_LOGS);
+  const [lastKeywords, setLastKeywords] = useState([] as string[]);
 
   useEffect(() => {
     fetch(APIROOT + "web/create", {
@@ -41,29 +42,50 @@ export const NewTalk = () => {
       target.value = "";
       e.preventDefault();
       if (text !== "") {
-        const newLogs = [...logs, { text: text, user: true }];
-        setLogs(newLogs);
-
-        // send to server
-        sendToServer(text, setLogs, newLogs);
+        enter(text);
       }
     }
+  };
+
+  const enter = (text: string) => {
+    const newLogs = [...logs, { text: text, user: true }];
+    setLogs(newLogs);
+
+    // send to server
+    sendToServer(text, setLogs, setLastKeywords, newLogs);
   };
 
   const onChange = () => {
     setTimeout(scrollToBottom);
   };
+
+  const NGKW_Buttons = lastKeywords.map((x) => {
+    const onClick = () => {
+      enter(`NGKW ${x}`);
+    };
+    return (
+      <Button size="small" variant="contained" onClick={onClick}>
+        {x}
+      </Button>
+    );
+  });
   return (
     <div className="App">
       <Menu />
       <ChatLine logs={logs}></ChatLine>
-
       <TextareaAutosize
         aria-label="empty textarea"
         placeholder=""
         onKeyPress={onKeyPress}
         onChange={onChange}
       />
+      <IconButton>🙁</IconButton>
+      {NGKW_Buttons}
+
+      {/* <IconButton>🙂</IconButton>
+      <Button size="small" variant="contained">
+        kw3
+      </Button> */}
       <hr id="bottom" />
     </div>
   );
@@ -74,6 +96,7 @@ function sendToServer(
   setLogs: React.Dispatch<
     React.SetStateAction<{ text: string; user: boolean }[]>
   >,
+  setLastKeywords: any,
   newLogs: { text: string; user: boolean }[]
 ) {
   if (TalkID !== "") {
@@ -89,6 +112,7 @@ function sendToServer(
       console.log(response);
       response.json().then((data) => {
         setLogs([...newLogs, { text: data.text, user: false }]);
+        setLastKeywords(data.last_kw);
       });
     });
   } else {
