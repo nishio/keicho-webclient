@@ -55,12 +55,13 @@ export const NewTalk = () => {
       <Menu />
       <ChatLine logs={logs}></ChatLine>
       <TextareaAutosize
-        aria-label="empty textarea"
+        aria-label="textarea"
         placeholder=""
         onKeyPress={onKeyPress}
         onChange={onChange}
+        id="textarea"
       />
-      <IconButton>🙁</IconButton>
+      <IconButton onClick={onClickNG}>🙁</IconButton>
       {NGKW_Buttons}
 
       {/* <IconButton>🙂</IconButton>
@@ -72,6 +73,10 @@ export const NewTalk = () => {
   );
 };
 
+const onClickNG = () => {
+  const t = document.getElementById("textarea") as HTMLTextAreaElement;
+  t.value += "🙁";
+};
 function sendToServer(
   text: string,
   setLogs: React.Dispatch<
