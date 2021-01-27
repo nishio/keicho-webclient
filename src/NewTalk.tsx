@@ -11,6 +11,7 @@ export let TalkID: string = "";
 export const NewTalk = () => {
   const [logs, setLogs] = useState(USE_PRESET ? PRESET_LOGS : INITIAL_LOGS);
   const [lastKeywords, setLastKeywords] = useState([] as string[]);
+  const [otherKeywords, setOtherKeywords] = useState([] as string[]);
 
   useEffect(getNewTalkID, []);
 
@@ -32,7 +33,7 @@ export const NewTalk = () => {
   const enter = (text: string) => {
     const newLogs = [...logs, { text: text, user: true }];
     setLogs(newLogs);
-    sendToServer(text, setLogs, setLastKeywords, newLogs);
+    sendToServer(text, setLogs, setLastKeywords, setOtherKeywords, newLogs);
   };
 
   const onChange = () => {
@@ -45,7 +46,17 @@ export const NewTalk = () => {
     };
     return (
       <Button size="small" variant="contained" onClick={onClick}>
-        {x}
+        🙁{x}
+      </Button>
+    );
+  });
+  const UPKW_Buttons = otherKeywords.slice(0, 3).map((x) => {
+    const onClick = () => {
+      enter(`UPKW ${x}`);
+    };
+    return (
+      <Button size="small" variant="contained" onClick={onClick}>
+        👍{x}
       </Button>
     );
   });
@@ -63,7 +74,7 @@ export const NewTalk = () => {
       />
       <IconButton onClick={onClickNG}>🙁</IconButton>
       {NGKW_Buttons}
-
+      {UPKW_Buttons}
       {/* <IconButton>🙂</IconButton>
       <Button size="small" variant="contained">
         kw3
@@ -83,6 +94,7 @@ function sendToServer(
     React.SetStateAction<{ text: string; user: boolean }[]>
   >,
   setLastKeywords: any,
+  setOtherKeywords: any,
   newLogs: { text: string; user: boolean }[]
 ) {
   if (TalkID !== "") {
@@ -98,6 +110,7 @@ function sendToServer(
       response.json().then((data) => {
         setLogs([...newLogs, { text: data.text, user: false }]);
         setLastKeywords(data.last_kw);
+        setOtherKeywords(data.other_kw);
       });
     });
   } else {
@@ -105,7 +118,7 @@ function sendToServer(
     setLogs([...newLogs, BOT_IS_SLEEPING]);
 
     setTimeout(() => {
-      sendToServer(text, setLogs, setLastKeywords, newLogs);
+      sendToServer(text, setLogs, setLastKeywords, setOtherKeywords, newLogs);
     }, 1000);
   }
 }
