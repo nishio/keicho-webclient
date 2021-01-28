@@ -32,11 +32,20 @@ export const ChatLeft = (props: { children: ReactNode }) => {
 };
 
 export const ChatRight = (props: { children: ReactNode }) => {
-  return (
-    <div className="line__right">
-      <div className="text">{pretty(props.children as string)}</div>
-    </div>
-  );
+  const text = props.children as string;
+  if (text.match(/[(（]/)) {
+    return (
+      <div className="line__right">
+        <div className="text comment">{pretty(text)}</div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="line__right">
+        <div className="text">{pretty(text)}</div>
+      </div>
+    );
+  }
 };
 
 type TLog = { user: boolean; text: string };

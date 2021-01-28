@@ -133,6 +133,22 @@ $myTextColor: #8de055; // 吹き出しの色
           border-bottom: 10px solid transparent;
         }
       }
+      .comment {
+        background-color: #ccc;
+        &::after {
+          content: "";
+          position: absolute;
+          display: block;
+          width: 0;
+          height: 0;
+          border-radius: 5px;
+
+          right: -5px;
+          top: 28px;
+          border: 5px solid #ccc;
+        }
+      }
+
       /* 自分がスタンプを送る時 */
       .stamp {
         position: relative;
