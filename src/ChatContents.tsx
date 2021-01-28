@@ -19,13 +19,17 @@ const pretty = (text: string) => {
   return ret;
 };
 export const ChatLeft = (props: { children: ReactNode }) => {
+  const text = props.children as string;
+  if (text === "") {
+    return <></>;
+  }
   return (
     <div className="line__left">
       <figure>
         <img alt="nisbot" src={BotIcon}></img>
       </figure>
       <div className="line__left-text">
-        <div className="text">{pretty(props.children as string)}</div>
+        <div className="text">{pretty(text)}</div>
       </div>
     </div>
   );
@@ -33,7 +37,7 @@ export const ChatLeft = (props: { children: ReactNode }) => {
 
 export const ChatRight = (props: { children: ReactNode }) => {
   const text = props.children as string;
-  if (text.match(/[(（]/)) {
+  if (text.match(/^[(（]/)) {
     return (
       <div className="line__right">
         <div className="text comment">{pretty(text)}</div>
