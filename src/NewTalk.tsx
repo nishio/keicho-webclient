@@ -115,9 +115,11 @@ function sendToServer(
       },
     }).then((response) => {
       response.json().then((data) => {
-        setLogs([...newLogs, { text: data.text, user: false }]);
-        setLastKeywords(data.last_kw);
-        setOtherKeywords(data.other_kw);
+        if (data.text !== "") {
+          setLogs([...newLogs, { text: data.text, user: false }]);
+          setLastKeywords(data.last_kw);
+          setOtherKeywords(data.other_kw);
+        }
       });
     });
   } else {
