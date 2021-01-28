@@ -43,6 +43,8 @@ export const NewTalk = () => {
   const NGKW_Buttons = lastKeywords.map((x) => {
     const onClick = () => {
       enter(`NGKW ${x}`);
+      const t = document.getElementById("textarea") as HTMLTextAreaElement;
+      t.focus();
     };
     return (
       <Button size="small" variant="contained" onClick={onClick}>
@@ -53,6 +55,8 @@ export const NewTalk = () => {
   const UPKW_Buttons = otherKeywords.slice(0, 3).map((x) => {
     const onClick = () => {
       enter(`UPKW ${x}`);
+      const t = document.getElementById("textarea") as HTMLTextAreaElement;
+      t.focus();
     };
     return (
       <Button size="small" variant="contained" onClick={onClick}>
@@ -86,7 +90,10 @@ export const NewTalk = () => {
 
 const onClickNG = () => {
   const t = document.getElementById("textarea") as HTMLTextAreaElement;
-  t.value += "🙁";
+  const start = t.selectionStart;
+  const end = t.selectionEnd;
+  t.value = t.value.substring(0, start) + "🙁" + t.value.substring(end);
+  t.focus();
 };
 function sendToServer(
   text: string,
