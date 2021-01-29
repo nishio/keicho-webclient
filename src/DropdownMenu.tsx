@@ -8,6 +8,7 @@ import { TalkID } from "./NewTalk";
 import { exportForScrapbox } from "./exportForScrapbox";
 import { openNewTalk } from "./openNewTalk";
 import { openHelp } from "./openHelp";
+import { talkObject } from "./ShowLog";
 
 export const DropdownMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -49,11 +50,20 @@ export const DropdownMenu = () => {
       >
         <MyMenuItem onClick={openHelp}>Help</MyMenuItem>
         <MyMenuItem onClick={openNewTalk}>New Talk</MyMenuItem>
-        <MyMenuItem onClick={exportForRegroup}>Export for Regroup</MyMenuItem>
-        <MyMenuItem onClick={exportForScrapbox}>Export for Scrapbox</MyMenuItem>
-        <MyMenuItem onClick={handleClose} disabled>
-          Export as Text
-        </MyMenuItem>
+
+        {talkObject
+          ? [
+              <MyMenuItem onClick={exportForRegroup}>
+                Export for Regroup
+              </MyMenuItem>,
+              <MyMenuItem onClick={exportForScrapbox}>
+                Export for Scrapbox
+              </MyMenuItem>,
+              <MyMenuItem onClick={handleClose} disabled>
+                Export as Text
+              </MyMenuItem>,
+            ]
+          : ""}
         {TalkID !== "" ? (
           <MyMenuItem onClick={showLog}>Show URL to share</MyMenuItem>
         ) : (
