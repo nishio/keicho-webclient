@@ -47,7 +47,12 @@ export const NewTalk = () => {
       t.focus();
     };
     return (
-      <Button size="small" variant="contained" onClick={onClick}>
+      <Button
+        size="small"
+        variant="contained"
+        onClick={onClick}
+        key={"NGKW" + x}
+      >
         🙁{x}
       </Button>
     );
@@ -59,7 +64,12 @@ export const NewTalk = () => {
       t.focus();
     };
     return (
-      <Button size="small" variant="contained" onClick={onClick}>
+      <Button
+        size="small"
+        variant="contained"
+        onClick={onClick}
+        key={"UPKW" + x}
+      >
         👍{x}
       </Button>
     );
