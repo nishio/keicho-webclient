@@ -56,6 +56,13 @@ export const ScrapboxDialog = () => {
     setHumanIcon(e.target.value);
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert("copy ok");
+      setOpen(false);
+    });
+  };
+
   return (
     <div>
       <Dialog
@@ -92,6 +99,9 @@ export const ScrapboxDialog = () => {
           />
         </DialogContent>
         <DialogActions>
+          <Button onClick={handleCopy} color="primary">
+            Copy
+          </Button>
           <Button onClick={handleClose} color="primary">
             Close
           </Button>
