@@ -16,9 +16,10 @@ export const NewTalk = () => {
   const [logs, setLogs] = useState(USE_PRESET ? PRESET_LOGS : INITIAL_LOGS);
   const [lastKeywords, setLastKeywords] = useState([] as string[]);
   const [otherKeywords, setOtherKeywords] = useState([] as string[]);
+  const [canInput, setCanInput] = useState(true);
 
   useEffect(() => {
-    getNewTalkID(setLogs);
+    getNewTalkID(setLogs, setCanInput);
   }, []);
 
   // when log changed, scroll to bottom after the component rendered
@@ -39,7 +40,14 @@ export const NewTalk = () => {
   const enter = (text: string) => {
     const newLogs = [...logs, { text: text, user: true }];
     setLogs(newLogs);
-    sendToServer(text, setLogs, setLastKeywords, setOtherKeywords, newLogs);
+    sendToServer(
+      text,
+      setLogs,
+      setLastKeywords,
+      setOtherKeywords,
+      setCanInput,
+      newLogs
+    );
   };
 
   const onChange = () => {
@@ -81,24 +89,35 @@ export const NewTalk = () => {
     );
   });
 
+  const InputArea = (props: { visible: Boolean }) => {
+    if (props.visible) {
+      return (
+        <>
+          <TextareaAutosize
+            aria-label="textarea"
+            placeholder=""
+            onKeyPress={onKeyPress}
+            onChange={onChange}
+            id="textarea"
+          />
+          <IconButton onClick={onClickNG}>🙁</IconButton>
+          {NGKW_Buttons}
+          {UPKW_Buttons}
+          {/* <IconButton>🙂</IconButton>
+      <Button size="small" variant="contained">
+        kw3
+      </Button> */}
+        </>
+      );
+    } else {
+      return <></>;
+    }
+  };
   return (
     <div className="App">
       <Menu />
       <ChatLine logs={logs}></ChatLine>
-      <TextareaAutosize
-        aria-label="textarea"
-        placeholder=""
-        onKeyPress={onKeyPress}
-        onChange={onChange}
-        id="textarea"
-      />
-      <IconButton onClick={onClickNG}>🙁</IconButton>
-      {NGKW_Buttons}
-      {UPKW_Buttons}
-      {/* <IconButton>🙂</IconButton>
-      <Button size="small" variant="contained">
-        kw3
-      </Button> */}
+      <InputArea visible={canInput} />
       <hr id="bottom" />
     </div>
   );
@@ -118,6 +137,7 @@ function sendToServer(
   >,
   setLastKeywords: any,
   setOtherKeywords: any,
+  setCanInput: any,
   newLogs: { text: string; user: boolean }[]
 ) {
   if (TalkID !== "") {
@@ -143,18 +163,26 @@ function sendToServer(
       })
       .catch(() => {
         setLogs([...newLogs, ERROR_ON_SERVER]);
+        setCanInput(false);
       });
   } else {
     // bot is sleeping
     setLogs([...newLogs, BOT_IS_SLEEPING]);
 
     setTimeout(() => {
-      sendToServer(text, setLogs, setLastKeywords, setOtherKeywords, newLogs);
+      sendToServer(
+        text,
+        setLogs,
+        setLastKeywords,
+        setOtherKeywords,
+        setCanInput,
+        newLogs
+      );
     }, 1000);
   }
 }
 
-const getNewTalkID = (setLogs: any) => {
+const getNewTalkID = (setLogs: any, setCanInput: any) => {
   fetch(APIROOT + "web/create", {
     mode: "cors",
     method: "GET",
@@ -167,5 +195,6 @@ const getNewTalkID = (setLogs: any) => {
     })
     .catch(() => {
       setLogs([ERROR_ON_SERVER]);
+      setCanInput(false);
     });
 };
