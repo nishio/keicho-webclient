@@ -1,5 +1,5 @@
 import { TalkID } from "./NewTalk";
 
-export const showLog = () => {
+export const showLogInNewWindow = () => {
   window.open(`#talk=${TalkID}`, "_blank");
 };

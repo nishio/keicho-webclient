@@ -3,7 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Menu, MenuItem } from "@material-ui/core";
 import { exportForRegroup } from "./exportForRegroup";
-import { showLog } from "./showLog.1";
+import { showLogInNewWindow } from "./showLogInNewWindow";
 import { TalkID } from "./NewTalk";
 import { exportForScrapbox } from "./exportForScrapbox";
 import { openNewTalk } from "./openNewTalk";
@@ -65,7 +65,9 @@ export const DropdownMenu = () => {
             ]
           : ""}
         {TalkID !== "" ? (
-          <MyMenuItem onClick={showLog}>Show URL to share</MyMenuItem>
+          <MyMenuItem onClick={showLogInNewWindow}>
+            Show URL to share
+          </MyMenuItem>
         ) : (
           ""
         )}
