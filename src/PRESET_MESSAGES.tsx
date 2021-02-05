@@ -35,3 +35,7 @@ export const BOT_IS_THINKING = {
   text: "(考え中...)",
   user: false,
 };
+
+export const LOADING = [
+  { text: "過去の会話データを読み込み中です...", user: false },
+];

@@ -8,6 +8,7 @@ const INITIAL_GLOBAL_STATE = {
   otherKeywords: [] as string[],
   canInput: true,
   previousTalkID: "",
+  talkObject: undefined as any,
 };
 
 export const initializeGlobalState = () => {

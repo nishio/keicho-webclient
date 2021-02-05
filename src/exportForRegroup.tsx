@@ -1,7 +1,10 @@
+import { getGlobal } from "reactn";
 import { openRegroupDialog } from "./RegroupDialog";
-import { talkObject } from "./ShowLog";
 
 export const exportForRegroup = () => {
+  const g = getGlobal();
+  const talkObject = g.talkObject;
+
   const lines: string[] = [];
   const litsk: { [key: number]: string[] } = {};
   if (talkObject.line_id_to_selected_keywords) {

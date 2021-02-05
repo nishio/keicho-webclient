@@ -5,7 +5,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { TextareaAutosize } from "@material-ui/core";
-import { talkObject } from "./ShowLog";
+import { getGlobal } from "reactn";
 
 export let openScrapboxDialog: any;
 
@@ -14,6 +14,9 @@ export const ScrapboxDialog = () => {
   const [text, setText] = React.useState("");
   const [roboIcon, setRoboIcon] = React.useState("[nisbot.icon]");
   const [humanIcon, setHumanIcon] = React.useState("[nishio.icon]");
+
+  const g = getGlobal();
+  const talkObject = g.talkObject;
 
   useEffect(() => {
     const lines: string[] = [];
@@ -39,7 +42,7 @@ export const ScrapboxDialog = () => {
       }
     });
     setText(lines.join("\n"));
-  }, [roboIcon, humanIcon, open]);
+  }, [roboIcon, humanIcon, open, talkObject]);
 
   openScrapboxDialog = () => {
     setOpen(true);

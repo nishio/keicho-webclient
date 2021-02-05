@@ -7,12 +7,14 @@ import { showLogInNewWindow } from "./showLogInNewWindow";
 import { exportForScrapbox } from "./exportForScrapbox";
 import { openNewTalk } from "./openNewTalk";
 import { openHelp } from "./openHelp";
-import { talkObject } from "./ShowLog";
-import { getGlobal, useGlobal } from "reactn";
+import { getGlobal, setGlobal, useGlobal } from "reactn";
+import { loadLogs } from "./loadLogs";
 
 export const DropdownMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const TalkID = getGlobal().TalkID;
+  const g = getGlobal();
+  const TalkID = g.TalkID;
+  const talkObject = g.talkObject;
 
   const onClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -39,8 +41,17 @@ export const DropdownMenu = () => {
     const openLastLog = () => {
       window.open(`#talk=${lastTalkID}`, "_blank");
     };
+    const enterLastTalk = () => {
+      loadLogs(lastTalkID);
+      setGlobal({ TalkID: lastTalkID });
+    };
     if (lastTalkID) {
-      return <MyMenuItem onClick={openLastLog}>Open Last Log</MyMenuItem>;
+      return (
+        <>
+          <MyMenuItem onClick={openLastLog}>Show Log of Last Talk</MyMenuItem>
+          <MyMenuItem onClick={enterLastTalk}>Re-enter to Last Talk</MyMenuItem>
+        </>
+      );
     } else {
       return <></>;
     }
