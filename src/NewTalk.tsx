@@ -5,7 +5,11 @@ import { ChatLine } from "./ChatContents";
 import { PRESET_LOGS } from "./PRESET_LOGS";
 import { USE_PRESET, INITIAL_LOGS, APIROOT } from "./App";
 import { scrollToBottom } from "./scrollToBottom";
-import { BOT_IS_SLEEPING } from "./BOT_IS_SLEEPING";
+import {
+  BOT_IS_SLEEPING,
+  ERROR_ON_SERVER,
+  BOT_IS_THINKING,
+} from "./PRESET_MESSAGES";
 
 export let TalkID: string = "";
 export const NewTalk = () => {
@@ -13,7 +17,9 @@ export const NewTalk = () => {
   const [lastKeywords, setLastKeywords] = useState([] as string[]);
   const [otherKeywords, setOtherKeywords] = useState([] as string[]);
 
-  useEffect(getNewTalkID, []);
+  useEffect(() => {
+    getNewTalkID(setLogs);
+  }, []);
 
   // when log changed, scroll to bottom after the component rendered
   useEffect(scrollToBottom, [logs]);
@@ -116,6 +122,8 @@ function sendToServer(
 ) {
   if (TalkID !== "") {
     const data = { user: "nobody", talk: TalkID, text: text };
+    setLogs([...newLogs, BOT_IS_THINKING]);
+
     fetch(APIROOT + "web/", {
       mode: "cors",
       method: "POST",
@@ -123,15 +131,19 @@ function sendToServer(
       headers: {
         "Content-Type": "application/json",
       },
-    }).then((response) => {
-      response.json().then((data) => {
-        if (data.text !== "") {
-          setLogs([...newLogs, { text: data.text, user: false }]);
-          setLastKeywords(data.last_kw);
-          setOtherKeywords(data.other_kw);
-        }
+    })
+      .then((response) => {
+        response.json().then((data) => {
+          if (data.text !== "") {
+            setLogs([...newLogs, { text: data.text, user: false }]);
+            setLastKeywords(data.last_kw);
+            setOtherKeywords(data.other_kw);
+          }
+        });
+      })
+      .catch(() => {
+        setLogs([...newLogs, ERROR_ON_SERVER]);
       });
-    });
   } else {
     // bot is sleeping
     setLogs([...newLogs, BOT_IS_SLEEPING]);
@@ -142,7 +154,7 @@ function sendToServer(
   }
 }
 
-const getNewTalkID = () => {
+const getNewTalkID = (setLogs: any) => {
   fetch(APIROOT + "web/create", {
     mode: "cors",
     method: "GET",
@@ -152,5 +164,8 @@ const getNewTalkID = () => {
     })
     .then((text) => {
       TalkID = text;
+    })
+    .catch(() => {
+      setLogs([ERROR_ON_SERVER]);
     });
 };
