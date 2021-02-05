@@ -7,6 +7,7 @@ const INITIAL_GLOBAL_STATE = {
   lastKeywords: [] as string[],
   otherKeywords: [] as string[],
   canInput: true,
+  previousTalkID: "",
 };
 
 export const initializeGlobalState = () => {

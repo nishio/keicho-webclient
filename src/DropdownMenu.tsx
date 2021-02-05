@@ -8,7 +8,7 @@ import { exportForScrapbox } from "./exportForScrapbox";
 import { openNewTalk } from "./openNewTalk";
 import { openHelp } from "./openHelp";
 import { talkObject } from "./ShowLog";
-import { getGlobal } from "reactn";
+import { getGlobal, useGlobal } from "reactn";
 
 export const DropdownMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -17,9 +17,10 @@ export const DropdownMenu = () => {
   const onClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = (event: React.MouseEvent<HTMLLIElement>) => {
+  const handleClose = () => {
     setAnchorEl(null);
   };
+
   const MyMenuItem = React.forwardRef((props: any, ref) => {
     const { children, onClick, ...other } = props;
     const f = () => {
@@ -32,6 +33,19 @@ export const DropdownMenu = () => {
       </MenuItem>
     );
   });
+
+  const VisitLastTalk = () => {
+    const [lastTalkID] = useGlobal("previousTalkID");
+    const openLastLog = () => {
+      window.open(`#talk=${lastTalkID}`, "_blank");
+    };
+    if (lastTalkID) {
+      return <MyMenuItem onClick={openLastLog}>Open Last Log</MyMenuItem>;
+    } else {
+      return <></>;
+    }
+  };
+
   return (
     <>
       <IconButton
@@ -72,6 +86,7 @@ export const DropdownMenu = () => {
         ) : (
           ""
         )}
+        <VisitLastTalk />
       </Menu>
     </>
   );
