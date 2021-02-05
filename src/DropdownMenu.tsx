@@ -7,8 +7,11 @@ import { showLogInNewWindow } from "./showLogInNewWindow";
 import { exportForScrapbox } from "./exportForScrapbox";
 import { openNewTalk } from "./openNewTalk";
 import { openHelp } from "./openHelp";
-import { getGlobal, setGlobal, useGlobal } from "reactn";
-import { loadLogs } from "./loadLogs";
+import { getGlobal } from "reactn";
+import { ReEnterLastTalk } from "./ReEnterLastTalk";
+import { ShowLastTalk } from "./ShowLastTalk";
+
+let handleClose = () => {};
 
 export const DropdownMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -19,42 +22,8 @@ export const DropdownMenu = () => {
   const onClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const MyMenuItem = React.forwardRef((props: any, ref) => {
-    const { children, onClick, ...other } = props;
-    const f = () => {
-      onClick();
-      setAnchorEl(null);
-    };
-    return (
-      <MenuItem onClick={f} {...other} ref={ref}>
-        {children}
-      </MenuItem>
-    );
-  });
-
-  const VisitLastTalk = () => {
-    const [lastTalkID] = useGlobal("previousTalkID");
-    const openLastLog = () => {
-      window.open(`#talk=${lastTalkID}`, "_blank");
-    };
-    const enterLastTalk = () => {
-      loadLogs(lastTalkID);
-      setGlobal({ TalkID: lastTalkID });
-    };
-    if (lastTalkID) {
-      return (
-        <>
-          <MyMenuItem onClick={openLastLog}>Show Log of Last Talk</MyMenuItem>
-          <MyMenuItem onClick={enterLastTalk}>Re-enter to Last Talk</MyMenuItem>
-        </>
-      );
-    } else {
-      return <></>;
-    }
   };
 
   return (
@@ -74,31 +43,45 @@ export const DropdownMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MyMenuItem onClick={openHelp}>Help</MyMenuItem>
-        <MyMenuItem onClick={openNewTalk}>New Talk</MyMenuItem>
+        <AutoCloseMenuItem onClick={openHelp}>Help</AutoCloseMenuItem>
+        <AutoCloseMenuItem onClick={openNewTalk}>New Talk</AutoCloseMenuItem>
 
         {talkObject
           ? [
-              <MyMenuItem onClick={exportForRegroup}>
+              <AutoCloseMenuItem onClick={exportForRegroup}>
                 Export for Regroup
-              </MyMenuItem>,
-              <MyMenuItem onClick={exportForScrapbox}>
+              </AutoCloseMenuItem>,
+              <AutoCloseMenuItem onClick={exportForScrapbox}>
                 Export for Scrapbox
-              </MyMenuItem>,
-              <MyMenuItem onClick={handleClose} disabled>
+              </AutoCloseMenuItem>,
+              <AutoCloseMenuItem onClick={handleClose} disabled>
                 Export as Text
-              </MyMenuItem>,
+              </AutoCloseMenuItem>,
             ]
           : ""}
         {TalkID !== "" ? (
-          <MyMenuItem onClick={showLogInNewWindow}>
+          <AutoCloseMenuItem onClick={showLogInNewWindow}>
             Show URL to share
-          </MyMenuItem>
+          </AutoCloseMenuItem>
         ) : (
           ""
         )}
-        <VisitLastTalk />
+        <ShowLastTalk />
+        <ReEnterLastTalk />
       </Menu>
     </>
   );
 };
+
+export const AutoCloseMenuItem = React.forwardRef((props: any, ref) => {
+  const { children, onClick, ...other } = props;
+  const f = () => {
+    onClick();
+    handleClose();
+  };
+  return (
+    <MenuItem onClick={f} {...other} ref={ref}>
+      {children}
+    </MenuItem>
+  );
+});
