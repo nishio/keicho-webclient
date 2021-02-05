@@ -4,14 +4,15 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { Menu, MenuItem } from "@material-ui/core";
 import { exportForRegroup } from "./exportForRegroup";
 import { showLogInNewWindow } from "./showLogInNewWindow";
-import { TalkID } from "./NewTalk";
 import { exportForScrapbox } from "./exportForScrapbox";
 import { openNewTalk } from "./openNewTalk";
 import { openHelp } from "./openHelp";
 import { talkObject } from "./ShowLog";
+import { getGlobal } from "reactn";
 
 export const DropdownMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const TalkID = getGlobal().TalkID;
 
   const onClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

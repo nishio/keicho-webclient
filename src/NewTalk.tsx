@@ -1,25 +1,24 @@
-import React, { KeyboardEventHandler, useEffect, useState } from "react";
+import React, { KeyboardEventHandler, useEffect } from "react";
 import Menu from "./Menu";
 import { Button, IconButton, TextareaAutosize } from "@material-ui/core";
 import { ChatLine } from "./ChatContents";
-import { PRESET_LOGS } from "./PRESET_LOGS";
-import { USE_PRESET, INITIAL_LOGS, APIROOT } from "./App";
 import { scrollToBottom } from "./scrollToBottom";
 import {
   BOT_IS_SLEEPING,
   ERROR_ON_SERVER,
   BOT_IS_THINKING,
 } from "./PRESET_MESSAGES";
+import { getGlobal, setGlobal, useGlobal } from "reactn";
+import { APIROOT } from "./App";
 
-export let TalkID: string = "";
 export const NewTalk = () => {
-  const [logs, setLogs] = useState(USE_PRESET ? PRESET_LOGS : INITIAL_LOGS);
-  const [lastKeywords, setLastKeywords] = useState([] as string[]);
-  const [otherKeywords, setOtherKeywords] = useState([] as string[]);
-  const [canInput, setCanInput] = useState(true);
+  const [logs, setLogs] = useGlobal("logs");
+  const [lastKeywords] = useGlobal("lastKeywords");
+  const [otherKeywords] = useGlobal("otherKeywords");
+  const [canInput] = useGlobal("canInput");
 
   useEffect(() => {
-    getNewTalkID(setLogs, setCanInput);
+    getNewTalkID();
   }, []);
 
   // when log changed, scroll to bottom after the component rendered
@@ -40,14 +39,7 @@ export const NewTalk = () => {
   const enter = (text: string) => {
     const newLogs = [...logs, { text: text, user: true }];
     setLogs(newLogs);
-    sendToServer(
-      text,
-      setLogs,
-      setLastKeywords,
-      setOtherKeywords,
-      setCanInput,
-      newLogs
-    );
+    sendToServer(text, newLogs);
   };
 
   const onChange = () => {
@@ -130,19 +122,15 @@ const onClickNG = () => {
   t.value = t.value.substring(0, start) + "🙁" + t.value.substring(end);
   t.focus();
 };
+
 function sendToServer(
   text: string,
-  setLogs: React.Dispatch<
-    React.SetStateAction<{ text: string; user: boolean }[]>
-  >,
-  setLastKeywords: any,
-  setOtherKeywords: any,
-  setCanInput: any,
   newLogs: { text: string; user: boolean }[]
 ) {
-  if (TalkID !== "") {
-    const data = { user: "nobody", talk: TalkID, text: text };
-    setLogs([...newLogs, BOT_IS_THINKING]);
+  const g = getGlobal();
+  if (g.TalkID !== "") {
+    const data = { user: "nobody", talk: g.TalkID, text: text };
+    setGlobal({ logs: [...newLogs, BOT_IS_THINKING] });
 
     fetch(APIROOT + "web/", {
       mode: "cors",
@@ -155,34 +143,31 @@ function sendToServer(
       .then((response) => {
         response.json().then((data) => {
           if (data.text !== "") {
-            setLogs([...newLogs, { text: data.text, user: false }]);
-            setLastKeywords(data.last_kw);
-            setOtherKeywords(data.other_kw);
+            setGlobal({
+              logs: [...newLogs, { text: data.text, user: false }],
+              lastKeywords: data.last_kw,
+              otherKeywords: data.other_kw,
+            });
           }
         });
       })
       .catch(() => {
-        setLogs([...newLogs, ERROR_ON_SERVER]);
-        setCanInput(false);
+        setGlobal({
+          logs: [...newLogs, ERROR_ON_SERVER],
+          canInput: false,
+        });
       });
   } else {
     // bot is sleeping
-    setLogs([...newLogs, BOT_IS_SLEEPING]);
+    setGlobal({ logs: [...newLogs, BOT_IS_SLEEPING] });
 
     setTimeout(() => {
-      sendToServer(
-        text,
-        setLogs,
-        setLastKeywords,
-        setOtherKeywords,
-        setCanInput,
-        newLogs
-      );
+      sendToServer(text, newLogs);
     }, 1000);
   }
 }
 
-const getNewTalkID = (setLogs: any, setCanInput: any) => {
+const getNewTalkID = () => {
   fetch(APIROOT + "web/create", {
     mode: "cors",
     method: "GET",
@@ -191,10 +176,9 @@ const getNewTalkID = (setLogs: any, setCanInput: any) => {
       return response.text();
     })
     .then((text) => {
-      TalkID = text;
+      setGlobal({ TalkID: text });
     })
     .catch(() => {
-      setLogs([ERROR_ON_SERVER]);
-      setCanInput(false);
+      setGlobal({ logs: [ERROR_ON_SERVER], canInput: false });
     });
 };
