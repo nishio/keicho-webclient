@@ -1,7 +1,7 @@
 import React from "react";
 import { setGlobal, useGlobal } from "reactn";
+import { AutoCloseMenuItem } from "./AutoCloseMenuItem";
 import { loadLogs } from "./loadLogs";
-import { AutoCloseMenuItem } from "./DropdownMenu";
 
 export const ReEnterLastTalk = () => {
   const [lastTalkID] = useGlobal("previousTalkID");

@@ -1,5 +1,5 @@
 import React, { KeyboardEventHandler, useEffect } from "react";
-import Menu from "./Menu";
+import { ButtonAppBarForNewTalk } from "./Menu";
 import { Button, IconButton, TextareaAutosize } from "@material-ui/core";
 import { ChatLine } from "./ChatContents";
 import { scrollToBottom } from "./scrollToBottom";
@@ -103,7 +103,7 @@ export const NewTalk = () => {
   };
   return (
     <div className="App">
-      <Menu />
+      <ButtonAppBarForNewTalk />
       <ChatLine logs={logs}></ChatLine>
       <InputArea visible={canInput} />
       <hr id="bottom" />

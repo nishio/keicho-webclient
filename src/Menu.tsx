@@ -3,7 +3,8 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { DropdownMenu } from "./DropdownMenu";
+import { DropdownMenuForNewTalk } from "./DropdownMenuForNewTalk";
+import { DropdownMenuForShowLog } from "./DropdownMenuForShowLog";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function ButtonAppBar() {
+export function ButtonAppBarForNewTalk() {
   const classes = useStyles();
 
   return (
@@ -26,7 +27,24 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Keicho
           </Typography>
-          <DropdownMenu />
+          <DropdownMenuForNewTalk />
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+}
+
+export function ButtonAppBarForShowLog() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            Keicho:Log
+          </Typography>
+          <DropdownMenuForShowLog />
         </Toolbar>
       </AppBar>
     </div>

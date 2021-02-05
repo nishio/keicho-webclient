@@ -1,6 +1,6 @@
 import React from "react";
 import { useGlobal } from "reactn";
-import { AutoCloseMenuItem } from "./DropdownMenu";
+import { AutoCloseMenuItem } from "./AutoCloseMenuItem";
 
 export const ShowLastTalk = () => {
   const [lastTalkID] = useGlobal("previousTalkID");

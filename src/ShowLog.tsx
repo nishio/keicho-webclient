@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useGlobal } from "reactn";
 import { ChatLine } from "./ChatContents";
 import { loadLogs } from "./loadLogs";
-import Menu from "./Menu";
+import { ButtonAppBarForShowLog } from "./Menu";
 import { RegroupDialog } from "./RegroupDialog";
 import { ScrapboxDialog } from "./ScrapboxDialog";
 
@@ -14,7 +14,7 @@ export const ShowLog = (props: { talk: string }) => {
   }, [props.talk]);
   return (
     <div className="App">
-      <Menu />
+      <ButtonAppBarForShowLog />
       <ChatLine logs={logs}></ChatLine>
       <RegroupDialog />
       <ScrapboxDialog />
