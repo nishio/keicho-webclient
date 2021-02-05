@@ -24,15 +24,16 @@ export function sendToServer(
       },
     })
       .then((response) => {
-        response.json().then((data) => {
-          if (data.text !== "") {
-            setGlobal({
-              logs: [...newLogs, { text: data.text, user: false }],
-              lastKeywords: data.last_kw,
-              otherKeywords: data.other_kw,
-            });
-          }
-        });
+        return response.json();
+      })
+      .then((data) => {
+        if (data.text !== "") {
+          setGlobal({
+            logs: [...newLogs, { text: data.text, user: false }],
+            lastKeywords: data.last_kw,
+            otherKeywords: data.other_kw,
+          });
+        }
       })
       .catch(() => {
         setGlobal({
