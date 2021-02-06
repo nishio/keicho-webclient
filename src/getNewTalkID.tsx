@@ -18,7 +18,13 @@ export const getNewTalkID = () => {
         .limit(1)
         .toArray()
         .then((x) => {
-          setGlobal({ TalkID: text, previousTalkID: x[0].TalkID });
+          const previousTalkID = x[0]?.TalkID;
+          if (previousTalkID !== undefined) {
+            setGlobal({ TalkID: text, previousTalkID: x[0].TalkID });
+          } else {
+            setGlobal({ TalkID: text, previousTalkID: "" });
+          }
+
           localDB.talks.add({ TalkID: text });
         });
     })
