@@ -4,6 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { initializeGlobalState } from "./initializeGlobalState";
+import * as Sentry from "@sentry/react";
+import { Integrations } from "@sentry/tracing";
+
+Sentry.init({
+  dsn:
+    "https://e4908ccb65fa4e7cb63ff1e84b55ba1f@o376998.ingest.sentry.io/5627136",
+  integrations: [new Integrations.BrowserTracing()],
+
+  // We recommend adjusting this value in production, or using tracesSampler
+  // for finer control
+  tracesSampleRate: 1.0,
+});
 
 initializeGlobalState();
 ReactDOM.render(
