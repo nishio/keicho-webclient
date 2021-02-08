@@ -15,12 +15,23 @@ Sentry.init({
   // We recommend adjusting this value in production, or using tracesSampler
   // for finer control
   tracesSampleRate: 1.0,
+  environment: process.env.NODE_ENV,
+  beforeSend(event, hint) {
+    // Check if it is an exception, and if so, show the report dialog
+    console.log(event, hint);
+    if (event.exception && !shownReportDialog) {
+      shownReportDialog = true;
+      Sentry.showReportDialog({ eventId: event.event_id });
+    }
+    return event;
+  },
 });
 
+let shownReportDialog = false;
 initializeGlobalState();
 ReactDOM.render(
   // <React.StrictMode>
-  <Sentry.ErrorBoundary showDialog>
+  <Sentry.ErrorBoundary fallback="An error has occurred" showDialog>
     <App />
   </Sentry.ErrorBoundary>,
   // </React.StrictMode>
