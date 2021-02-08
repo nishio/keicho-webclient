@@ -7,6 +7,7 @@ import { setGlobal, useGlobal } from "reactn";
 import { getNewTalkID } from "./getNewTalkID";
 import { sendToServer } from "./sendToServer";
 import { onClickNG } from "./onClickNG";
+import { focusOnTextarea } from "./focusOnTextarea";
 
 export const NewTalk = () => {
   const [logs] = useGlobal("logs");
@@ -16,6 +17,7 @@ export const NewTalk = () => {
 
   useEffect(() => {
     getNewTalkID();
+    focusOnTextarea();
   }, []);
 
   // when log changed, scroll to bottom after the component rendered
@@ -45,8 +47,7 @@ export const NewTalk = () => {
   const NGKW_Buttons = lastKeywords.map((x) => {
     const onClick = () => {
       enter(`NGKW ${x}`);
-      const t = document.getElementById("textarea") as HTMLTextAreaElement;
-      t.focus();
+      focusOnTextarea();
     };
     return (
       <Button
@@ -62,8 +63,7 @@ export const NewTalk = () => {
   const UPKW_Buttons = otherKeywords.slice(0, 3).map((x) => {
     const onClick = () => {
       enter(`UPKW ${x}`);
-      const t = document.getElementById("textarea") as HTMLTextAreaElement;
-      t.focus();
+      focusOnTextarea();
     };
     return (
       <Button

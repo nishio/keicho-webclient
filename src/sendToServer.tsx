@@ -6,6 +6,7 @@ import {
 import { getGlobal, setGlobal } from "reactn";
 import { APIROOT } from "./App";
 import * as Sentry from "@sentry/browser";
+import { focusOnTextarea } from "./focusOnTextarea";
 
 export function sendToServer(
   text: string,
@@ -32,11 +33,14 @@ export function sendToServer(
       })
       .then((data) => {
         if (data.text !== "") {
-          setGlobal({
-            logs: [...newLogs, { text: data.text, user: false }],
-            lastKeywords: data.last_kw,
-            otherKeywords: data.other_kw,
-          });
+          setGlobal(
+            {
+              logs: [...newLogs, { text: data.text, user: false }],
+              lastKeywords: data.last_kw,
+              otherKeywords: data.other_kw,
+            },
+            focusOnTextarea
+          );
           span.finish();
           transaction.finish();
         }
