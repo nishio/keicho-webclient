@@ -2,8 +2,12 @@ import { ERROR_ON_SERVER } from "./PRESET_MESSAGES";
 import { setGlobal } from "reactn";
 import { APIROOT } from "./App";
 import { localDB } from "./localDB";
+import * as Sentry from "@sentry/browser";
 
 export const getNewTalkID = () => {
+  const transaction = Sentry.startTransaction({ name: "getNewTalkID" });
+  const span = transaction.startChild({ op: "getNewTalkID" });
+
   fetch(APIROOT + "web/create", {
     mode: "cors",
     method: "GET",
@@ -26,6 +30,8 @@ export const getNewTalkID = () => {
           }
 
           localDB.talks.add({ TalkID: text });
+          span.finish();
+          transaction.finish();
         });
     })
     .catch(() => {
