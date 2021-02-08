@@ -13,6 +13,12 @@ export const DropdownMenuForNewTalk = () => {
       </AutoCloseMenuItem>
       <ShowLastTalk />
       <ReEnterLastTalk />
+      <AutoCloseMenuItem onClick={forceError}>Force error</AutoCloseMenuItem>
     </DropdownMenuCommon>
   );
+};
+
+const forceError = () => {
+  // @ts-ignore
+  forceErrorByCallUndefinedFunc();
 };
