@@ -21,7 +21,10 @@ export const NewTalk = () => {
   }, []);
 
   // when log changed, scroll to bottom after the component rendered
-  useEffect(scrollToBottom, [logs]);
+  // useEffect(scrollToBottom, [logs]);
+  useEffect(() => {
+    requestAnimationFrame(scrollToBottom);
+  }, [logs]);
 
   const onKeyPress: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
     if (e.key === "Enter") {
@@ -41,7 +44,7 @@ export const NewTalk = () => {
   };
 
   const onChange = () => {
-    setTimeout(scrollToBottom);
+    requestAnimationFrame(scrollToBottom);
   };
 
   const NGKW_Buttons = lastKeywords.map((x) => {
@@ -87,6 +90,7 @@ export const NewTalk = () => {
             onKeyPress={onKeyPress}
             onChange={onChange}
             id="textarea"
+            autoFocus
           />
           <IconButton onClick={onClickNG}>🙁</IconButton>
           {NGKW_Buttons}

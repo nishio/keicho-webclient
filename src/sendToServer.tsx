@@ -33,14 +33,11 @@ export function sendToServer(
       })
       .then((data) => {
         if (data.text !== "") {
-          setGlobal(
-            {
-              logs: [...newLogs, { text: data.text, user: false }],
-              lastKeywords: data.last_kw,
-              otherKeywords: data.other_kw,
-            },
-            focusOnTextarea
-          );
+          setGlobal({
+            logs: [...newLogs, { text: data.text, user: false }],
+            lastKeywords: data.last_kw,
+            otherKeywords: data.other_kw,
+          });
           span.finish();
           transaction.finish();
         }
