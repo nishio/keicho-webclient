@@ -105,7 +105,7 @@ export const NewTalk = () => {
         id="textarea"
         key="textarea"
         autoFocus
-        style={{ visibility: canInput ? "visible" : "hidden" }}
+        style={canInput ? {} : { visibility: "hidden" }}
       />
 
       <InputArea visible={canInput} />
