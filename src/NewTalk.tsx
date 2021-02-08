@@ -90,9 +90,8 @@ export const NewTalk = () => {
       </Button> */}
         </>
       );
-    } else {
-      return <></>;
     }
+    return null;
   };
   return (
     <div className="App">
