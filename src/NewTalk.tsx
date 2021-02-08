@@ -21,10 +21,7 @@ export const NewTalk = () => {
   }, []);
 
   // when log changed, scroll to bottom after the component rendered
-  // useEffect(scrollToBottom, [logs]);
-  useEffect(() => {
-    requestAnimationFrame(scrollToBottom);
-  }, [logs]);
+  useEffect(scrollToBottom, [logs]);
 
   const onKeyPress: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
     if (e.key === "Enter") {
@@ -84,14 +81,6 @@ export const NewTalk = () => {
     if (props.visible) {
       return (
         <>
-          <TextareaAutosize
-            aria-label="textarea"
-            placeholder=""
-            onKeyPress={onKeyPress}
-            onChange={onChange}
-            id="textarea"
-            autoFocus
-          />
           <IconButton onClick={onClickNG}>🙁</IconButton>
           {NGKW_Buttons}
           {UPKW_Buttons}
@@ -109,6 +98,17 @@ export const NewTalk = () => {
     <div className="App">
       <ButtonAppBarForNewTalk />
       <ChatLine logs={logs}></ChatLine>
+      <TextareaAutosize
+        aria-label="textarea"
+        placeholder=""
+        onKeyPress={onKeyPress}
+        onChange={onChange}
+        id="textarea"
+        key="textarea"
+        autoFocus
+        style={{ visibility: canInput ? "visible" : "hidden" }}
+      />
+
       <InputArea visible={canInput} />
       <hr id="bottom" />
     </div>

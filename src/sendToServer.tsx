@@ -6,7 +6,6 @@ import {
 import { getGlobal, setGlobal } from "reactn";
 import { APIROOT } from "./App";
 import * as Sentry from "@sentry/browser";
-import { focusOnTextarea } from "./focusOnTextarea";
 
 export function sendToServer(
   text: string,
