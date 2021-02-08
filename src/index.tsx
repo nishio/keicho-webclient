@@ -20,7 +20,9 @@ Sentry.init({
 initializeGlobalState();
 ReactDOM.render(
   // <React.StrictMode>
-  <App />,
+  <Sentry.ErrorBoundary showDialog>
+    <App />
+  </Sentry.ErrorBoundary>,
   // </React.StrictMode>
   document.getElementById("root")
 );
