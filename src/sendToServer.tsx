@@ -5,6 +5,7 @@ import {
 } from "./PRESET_MESSAGES";
 import { getGlobal, setGlobal } from "reactn";
 import { APIROOT } from "./App";
+import * as Sentry from "@sentry/browser";
 
 export function sendToServer(
   text: string,
@@ -14,6 +15,9 @@ export function sendToServer(
   if (g.TalkID !== "") {
     const data = { user: "nobody", talk: g.TalkID, text: text };
     setGlobal({ logs: [...newLogs, BOT_IS_THINKING] });
+
+    const transaction = Sentry.startTransaction({ name: "getNewTalkID" });
+    const span = transaction.startChild({ op: "getNewTalkID" });
 
     fetch(APIROOT + "web/", {
       mode: "cors",
@@ -33,9 +37,12 @@ export function sendToServer(
             lastKeywords: data.last_kw,
             otherKeywords: data.other_kw,
           });
+          span.finish();
+          transaction.finish();
         }
       })
       .catch(() => {
+        Sentry.captureMessage("ERROR_ON_SERVER");
         setGlobal({
           logs: [...newLogs, ERROR_ON_SERVER],
           canInput: false,

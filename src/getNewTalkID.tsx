@@ -35,6 +35,7 @@ export const getNewTalkID = () => {
         });
     })
     .catch(() => {
+      Sentry.captureMessage("ERROR_ON_SERVER: getNewTalkID");
       setGlobal({ logs: [ERROR_ON_SERVER], canInput: false });
     });
 };
