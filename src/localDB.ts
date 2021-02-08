@@ -11,7 +11,7 @@ class MyAppDatabase extends Dexie {
   //...other tables goes here...
 
   constructor() {
-    super("MyAppDatabase");
+    super("Keicho");
     this.version(1).stores({
       talks: "++id",
       //...other tables goes here...
