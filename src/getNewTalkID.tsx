@@ -8,7 +8,7 @@ export const getNewTalkID = () => {
   const transaction = Sentry.startTransaction({ name: "getNewTalkID" });
   const span = transaction.startChild({ op: "getNewTalkID" });
 
-  fetch(APIROOT + "web/create", {
+  fetch(APIROOT + "web/create/", {
     mode: "cors",
     method: "GET",
   })
