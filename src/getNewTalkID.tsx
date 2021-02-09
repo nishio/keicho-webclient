@@ -30,6 +30,7 @@ export const getNewTalkID = () => {
           }
 
           localDB.talks.add({ TalkID: text });
+          Sentry.setContext("Info", { TalkID: text });
           span.finish();
           transaction.finish();
         });
