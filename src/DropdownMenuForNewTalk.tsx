@@ -4,6 +4,7 @@ import { ReEnterLastTalk } from "./ReEnterLastTalk";
 import { ShowLastTalk } from "./ShowLastTalk";
 import { DropdownMenuCommon } from "./DropdownMenuCommon";
 import { AutoCloseMenuItem } from "./AutoCloseMenuItem";
+import * as Sentry from "@sentry/browser";
 
 export const DropdownMenuForNewTalk = () => {
   return (
@@ -19,6 +20,5 @@ export const DropdownMenuForNewTalk = () => {
 };
 
 const forceError = () => {
-  // @ts-ignore
-  forceErrorByCallUndefinedFunc();
+  Sentry.captureMessage("FORCED_ERROR");
 };
