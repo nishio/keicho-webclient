@@ -1,16 +1,23 @@
 import React from "react";
 import { MenuItem } from "@material-ui/core";
 import { handleClose } from "./DropdownMenuCommon";
+import { RefObject } from "react";
 
-export const AutoCloseMenuItem = React.forwardRef((props: any, ref) => {
-  const { children, onClick, ...other } = props;
+type PropsType = {
+  title: string;
+  onClick: () => unknown;
+  ref: RefObject<HTMLLIElement>;
+};
+
+export const AutoCloseMenuItem = React.forwardRef((props: PropsType) => {
+  const { title, onClick, ref, ...other } = props;
   const f = () => {
     handleClose();
     onClick();
   };
   return (
     <MenuItem onClick={f} {...other} ref={ref}>
-      {children}
+      {title}
     </MenuItem>
   );
 });

@@ -6,7 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { TextareaAutosize } from "@material-ui/core";
 
-export let openRegroupDialog: any;
+export let openRegroupDialog: (lines: string[]) => void;
 
 export const RegroupDialog = () => {
   const [open, setOpen] = React.useState(false);

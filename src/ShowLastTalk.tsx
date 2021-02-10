@@ -9,11 +9,8 @@ export const ShowLastTalk = () => {
   };
   if (lastTalkID) {
     return (
-      <AutoCloseMenuItem onClick={openLastLog}>
-        Show Log of Last Talk
-      </AutoCloseMenuItem>
+      <AutoCloseMenuItem onClick={openLastLog} title="Show Log of Last Talk" />
     );
-  } else {
-    return <></>;
   }
+  return null;
 };

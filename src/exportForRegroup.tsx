@@ -4,6 +4,9 @@ import { openRegroupDialog } from "./RegroupDialog";
 export const exportForRegroup = () => {
   const g = getGlobal();
   const talkObject = g.talkObject;
+  if (talkObject === undefined) {
+    return;
+  }
 
   const lines: string[] = [];
   const litsk: { [key: number]: string[] } = {};
@@ -13,7 +16,7 @@ export const exportForRegroup = () => {
     });
   }
 
-  talkObject.log.forEach((x: any, i: number) => {
+  talkObject.log.forEach((x: [number, string], i: number) => {
     if (x[0]) {
       // is user
       lines.push(x[1]); // x.text

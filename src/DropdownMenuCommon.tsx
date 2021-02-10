@@ -8,7 +8,7 @@ import { AutoCloseMenuItem } from "./AutoCloseMenuItem";
 
 export let handleClose = () => {};
 
-export const DropdownMenuCommon = (props: any) => {
+export const DropdownMenuCommon = (props: React.PropsWithChildren<{}>) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const onClickMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,8 +35,8 @@ export const DropdownMenuCommon = (props: any) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <AutoCloseMenuItem onClick={openHelp}>Help</AutoCloseMenuItem>
-        <AutoCloseMenuItem onClick={openNewTalk}>New Talk</AutoCloseMenuItem>
+        <AutoCloseMenuItem onClick={openHelp} title="Help" />
+        <AutoCloseMenuItem onClick={openNewTalk} title="New Talk" />
         {props.children}
       </Menu>
     </>

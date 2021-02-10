@@ -7,7 +7,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { TextareaAutosize } from "@material-ui/core";
 import { getGlobal } from "reactn";
 
-export let openScrapboxDialog: any;
+export let openScrapboxDialog: () => void;
 
 export const ScrapboxDialog = () => {
   const [open, setOpen] = React.useState(false);
@@ -26,7 +26,7 @@ export const ScrapboxDialog = () => {
     if (!open) {
       return;
     }
-    talkObject.log.forEach((x: any, i: number) => {
+    talkObject.log.forEach((x: [number, string], i: number) => {
       const [user, text] = x;
       if (user) {
         lines.push(humanIcon + text);

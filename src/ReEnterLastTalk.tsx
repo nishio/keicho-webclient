@@ -11,11 +11,11 @@ export const ReEnterLastTalk = () => {
   };
   if (lastTalkID) {
     return (
-      <AutoCloseMenuItem onClick={enterLastTalk}>
-        Re-enter to Last Talk
-      </AutoCloseMenuItem>
+      <AutoCloseMenuItem
+        onClick={enterLastTalk}
+        title="Re-enter to Last Talk"
+      />
     );
-  } else {
-    return <></>;
   }
+  return null;
 };

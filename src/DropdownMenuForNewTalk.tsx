@@ -9,12 +9,13 @@ import * as Sentry from "@sentry/browser";
 export const DropdownMenuForNewTalk = () => {
   return (
     <DropdownMenuCommon>
-      <AutoCloseMenuItem onClick={showLogInNewWindow}>
-        Show URL to share
-      </AutoCloseMenuItem>
+      <AutoCloseMenuItem
+        onClick={showLogInNewWindow}
+        title="Show URL to share"
+      />
       <ShowLastTalk />
       <ReEnterLastTalk />
-      <AutoCloseMenuItem onClick={forceError}>Force error</AutoCloseMenuItem>
+      <AutoCloseMenuItem onClick={forceError} title="Force error" />
     </DropdownMenuCommon>
   );
 };
