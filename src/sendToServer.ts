@@ -7,10 +7,9 @@ import { getGlobal, setGlobal } from "reactn";
 import { APIROOT } from "./App";
 import * as Sentry from "@sentry/browser";
 
-export function sendToServer(
-  text: string,
-  newLogs: { text: string; user: boolean }[]
-) {
+type TLogs = { text: string; user: boolean }[];
+
+export function sendToServer(text: string, newLogs: TLogs) {
   const g = getGlobal();
   if (g.TalkID !== "") {
     const data = { user: "nobody", talk: g.TalkID, text: text };
@@ -32,14 +31,12 @@ export function sendToServer(
       })
       .then((data) => {
         if (data.text !== "") {
-          setGlobal({
-            logs: [...newLogs, { text: data.text, user: false }],
-            lastKeywords: data.last_kw,
-            otherKeywords: data.other_kw,
-          });
-          span.finish();
-          transaction.finish();
+          return _gotResponse(newLogs, data);
         }
+      })
+      .then(() => {
+        span.finish();
+        transaction.finish();
       })
       .catch(() => {
         Sentry.captureMessage("ERROR_ON_SERVER");
@@ -57,3 +54,11 @@ export function sendToServer(
     }, 1000);
   }
 }
+
+export const _gotResponse = (newLogs: TLogs, data: any) => {
+  return setGlobal({
+    logs: [...newLogs, { text: data.text, user: false }],
+    lastKeywords: data.last_kw,
+    otherKeywords: data.other_kw,
+  });
+};
