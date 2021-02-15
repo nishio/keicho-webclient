@@ -2,6 +2,7 @@ import React from "react";
 import { MenuItem } from "@material-ui/core";
 import { handleClose } from "./DropdownMenuCommon";
 import { RefObject } from "react";
+import { Ref } from "react";
 
 type Props = {
   title: string;
@@ -9,8 +10,8 @@ type Props = {
   ref: RefObject<HTMLLIElement>;
 };
 
-const _MenuItem = (props: Props) => {
-  const { title, onClick, ref, ...other } = props;
+const _MenuItem = (props: Props, ref: Ref<HTMLLIElement>) => {
+  const { title, onClick, ...other } = props;
   const f = () => {
     handleClose();
     onClick();
