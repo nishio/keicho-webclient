@@ -10,12 +10,17 @@ export const DropdownMenuForNewTalk = () => {
   return (
     <DropdownMenuCommon>
       <AutoCloseMenuItem
+        id="showLogInNewWindow"
         onClick={showLogInNewWindow}
         title="Show URL to share"
       />
       <ShowLastTalk />
       <ReEnterLastTalk />
-      <AutoCloseMenuItem onClick={forceError} title="Force error" />
+      <AutoCloseMenuItem
+        id="forceError"
+        onClick={forceError}
+        title="Force error"
+      />
     </DropdownMenuCommon>
   );
 };

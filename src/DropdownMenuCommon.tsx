@@ -25,6 +25,7 @@ export const DropdownMenuCommon = (props: React.PropsWithChildren<{}>) => {
         color="inherit"
         aria-label="menu"
         onClick={onClickMenu}
+        id="menu"
       >
         <MenuIcon />
       </IconButton>
@@ -35,8 +36,12 @@ export const DropdownMenuCommon = (props: React.PropsWithChildren<{}>) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <AutoCloseMenuItem onClick={openHelp} title="Help" />
-        <AutoCloseMenuItem onClick={openNewTalk} title="New Talk" />
+        <AutoCloseMenuItem id="openHelp" onClick={openHelp} title="Help" />
+        <AutoCloseMenuItem
+          id="openNewTalk"
+          onClick={openNewTalk}
+          title="New Talk"
+        />
         {props.children}
       </Menu>
     </>

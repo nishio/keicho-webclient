@@ -7,6 +7,7 @@ import { Ref } from "react";
 type Props = {
   title: string;
   onClick: () => unknown;
+  id: string;
   ref: RefObject<HTMLLIElement>;
 };
 

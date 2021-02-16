@@ -10,10 +10,12 @@ export const DropdownMenuForShowLog = () => {
       <AutoCloseMenuItem
         onClick={exportForRegroup}
         title="Export for Regroup"
+        id="exportForRegroup"
       />
       <AutoCloseMenuItem
         onClick={exportForScrapbox}
         title="Export for Scrapbox"
+        id="exportForScrapbox"
       />
     </DropdownMenuCommon>
   );
