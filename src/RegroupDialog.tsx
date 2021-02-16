@@ -37,6 +37,7 @@ export const RegroupDialog = () => {
             id="multiline"
             style={{ width: "100%" }}
             value={text}
+            data-testid="textarea-export-for-regroup"
             // rowsMin={30}
             // onChange={onChange}
           />
