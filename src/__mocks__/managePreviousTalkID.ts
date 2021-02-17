@@ -1,9 +1,7 @@
-// no previoud id
+export const args = { previousTalkID: "test" };
+
 export const getPreviousTalkID = (): Promise<string> => {
-  return Promise.resolve("");
-};
-export const MOCK_PREVIOUS_ID_EXISTS = (): Promise<string> => {
-  return Promise.resolve("test");
+  return Promise.resolve(args.previousTalkID);
 };
 
 export const updatePreviousTalkID = (currentTalkID: string): void => {};

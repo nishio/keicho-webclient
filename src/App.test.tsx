@@ -15,6 +15,7 @@ import { ShowLog } from "./ShowLog";
 import * as RegroupDialogModule from "./RegroupDialog";
 import App from "./App";
 import pretty from "pretty";
+import * as managePreviousTalkIDModule from "./managePreviousTalkID";
 jest.mock("./managePreviousTalkID");
 jest.mock("./getNewTalkIDFromServer");
 
@@ -37,9 +38,22 @@ afterEach(() => {
   container.remove();
 });
 
-test("render", () => {
+test("render", async () => {
+  // render when previousTalkID is not exists
   const { container } = render(<App />);
   expect(container).toMatchSnapshot();
+  fireEvent.click(screen.getByLabelText("menu"));
+
+  expect(screen.queryByText("Re-enter to Last Talk")).toBeNull();
+
+  jest
+    .spyOn(managePreviousTalkIDModule, "getPreviousTalkID")
+    .mockResolvedValue("test");
+  render(<App />);
+  await waitFor(() => screen.getByText("Re-enter to Last Talk"));
+
+  expect(screen.queryByText("Re-enter to Last Talk")).not.toBeNull();
+
   // expect(pretty(container.innerHTML)).toMatchSnapshot();
   // jest.spyOn(sendToServer, "sendToServer").mockImplementation(() => {
   //   sendToServer._gotResponse([{ user: true, text: "aaa" }], {
