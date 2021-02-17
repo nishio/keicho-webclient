@@ -2,8 +2,6 @@ import React from "react";
 import { unmountComponentAtNode } from "react-dom";
 import { initializeGlobalState } from "./initializeGlobalState";
 
-import * as getNewTalkID from "./getNewTalkID";
-
 import {
   act,
   fireEvent,
@@ -15,10 +13,10 @@ import * as loadLogsModule from "./loadLogsFromFirestore";
 import * as MockTalkObject from "./talkObject.json";
 import { ShowLog } from "./ShowLog";
 import * as RegroupDialogModule from "./RegroupDialog";
-
-jest.spyOn(getNewTalkID, "getNewTalkID").mockImplementation(() => {
-  getNewTalkID._gotNewTalkID("test");
-});
+import App from "./App";
+import pretty from "pretty";
+jest.mock("./managePreviousTalkID");
+jest.mock("./getNewTalkIDFromServer");
 
 jest.spyOn(window, "scrollTo").mockImplementation(() => {});
 
@@ -40,9 +38,8 @@ afterEach(() => {
 });
 
 test("render", () => {
-  // act(() => {
-  //   render(<App />, container);
-  // });
+  const { container } = render(<App />);
+  expect(container).toMatchSnapshot();
   // expect(pretty(container.innerHTML)).toMatchSnapshot();
   // jest.spyOn(sendToServer, "sendToServer").mockImplementation(() => {
   //   sendToServer._gotResponse([{ user: true, text: "aaa" }], {
