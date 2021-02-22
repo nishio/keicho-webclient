@@ -5,12 +5,12 @@ import { loadLogs } from "./loadLogs";
 import { ButtonAppBarForShowLog } from "./Menu";
 import { RegroupDialog } from "./RegroupDialog";
 import { ScrapboxDialog } from "./ScrapboxDialog";
-
+export let loadLogsPromise: Promise<unknown>;
 export const ShowLog = (props: { talk: string }) => {
   const [logs] = useGlobal("logs");
 
   useEffect(() => {
-    loadLogs(props.talk);
+    loadLogsPromise = loadLogs(props.talk);
   }, [props.talk]);
   return (
     <div className="App">

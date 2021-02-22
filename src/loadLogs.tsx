@@ -18,11 +18,16 @@ export const updateLogs = (talkObject: any) => {
 };
 
 export function loadLogs(talk: string) {
-  setGlobal({ logs: LOADING });
-  loadLogsFromFirestore(talk)
+  return setGlobal({ logs: LOADING })
+    .then(() => {
+      return loadLogsFromFirestore(talk);
+    })
     .then(updateLogs)
     .catch(() => {
       // doc.data() will be undefined in this case
-      return setGlobal({ logs: [{ user: false, text: "No such document!" }] });
+      return setGlobal({
+        logs: [{ user: false, text: "No such document!" }],
+        talkObject: null,
+      });
     });
 }

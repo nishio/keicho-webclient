@@ -4,10 +4,12 @@ import { Button, IconButton, TextareaAutosize } from "@material-ui/core";
 import { ChatLine } from "./ChatContents";
 import { scrollToBottom } from "./scrollToBottom";
 import { setGlobal, useGlobal } from "reactn";
-import { getNewTalkID } from "./getNewTalkID";
+import { gotNewTalkID } from "./getNewTalkID";
 import { sendToServer } from "./sendToServer";
 import { onClickNG } from "./onClickNG";
 import { focusOnTextarea } from "./focusOnTextarea";
+import { getNewTalkIDFromServer } from "./getNewTalkIDFromServer";
+export let getNewTalkIDPromise: Promise<unknown>;
 
 export const NewTalk = () => {
   const [logs] = useGlobal("logs");
@@ -16,7 +18,7 @@ export const NewTalk = () => {
   const [canInput] = useGlobal("canInput");
 
   useEffect(() => {
-    getNewTalkID();
+    getNewTalkIDPromise = getNewTalkIDFromServer(gotNewTalkID);
     focusOnTextarea();
   }, []);
 

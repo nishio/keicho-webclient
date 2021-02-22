@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch } from "react";
 import { unmountComponentAtNode } from "react-dom";
 import { initializeGlobalState } from "./initializeGlobalState";
 
@@ -9,13 +9,15 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import * as loadLogsModule from "./loadLogsFromFirestore";
+import * as loadLogsFromFirestoreModule from "./loadLogsFromFirestore";
 import * as MockTalkObject from "./talkObject.json";
-import { ShowLog } from "./ShowLog";
+import { loadLogsPromise, ShowLog } from "./ShowLog";
 import * as RegroupDialogModule from "./RegroupDialog";
 import App from "./App";
-import pretty from "pretty";
 import * as managePreviousTalkIDModule from "./managePreviousTalkID";
+import { useState as originalUseState } from "react";
+import { getNewTalkIDPromise } from "./NewTalk";
+
 jest.mock("./managePreviousTalkID");
 jest.mock("./getNewTalkIDFromServer");
 
@@ -30,6 +32,20 @@ beforeEach(() => {
   act(() => {
     initializeGlobalState();
   });
+  jest.spyOn(React, "useState").mockImplementation((arg?: unknown): [
+    unknown,
+    Dispatch<unknown>
+  ] => {
+    const [s, setS] = originalUseState(arg);
+    return [
+      s,
+      (arg: unknown) => {
+        act(() => {
+          setS(arg);
+        });
+      },
+    ];
+  });
 });
 
 afterEach(() => {
@@ -39,89 +55,41 @@ afterEach(() => {
 });
 
 test("render", async () => {
-  // render when previousTalkID is not exists
+  // render when previousTalkID does not exist
+  jest
+    .spyOn(managePreviousTalkIDModule, "getPreviousTalkID")
+    .mockResolvedValue("");
+
   const { container } = render(<App />);
   expect(container).toMatchSnapshot();
   fireEvent.click(screen.getByLabelText("menu"));
-
+  await getNewTalkIDPromise;
   expect(screen.queryByText("Re-enter to Last Talk")).toBeNull();
 
+  // render when previousTalkID exists
   jest
     .spyOn(managePreviousTalkIDModule, "getPreviousTalkID")
     .mockResolvedValue("test");
   render(<App />);
-  await waitFor(() => screen.getByText("Re-enter to Last Talk"));
-
+  await getNewTalkIDPromise;
   expect(screen.queryByText("Re-enter to Last Talk")).not.toBeNull();
-
-  // expect(pretty(container.innerHTML)).toMatchSnapshot();
-  // jest.spyOn(sendToServer, "sendToServer").mockImplementation(() => {
-  //   sendToServer._gotResponse([{ user: true, text: "aaa" }], {
-  //     text: "bbb",
-  //     last_kw: ["a"],
-  //     other_kw: ["b"],
-  //   });
-  // });
-  // const textarea = container.querySelector("[id=textarea]");
-  // expect(textarea).not.toBeNull();
-  // act(() => {
-  //   textarea?.dispatchEvent(
-  //     new KeyboardEvent("keypress", {
-  //       key: "Enter",
-  //       bubbles: true,
-  //     })
-  //   );
-  //   const e = textarea as HTMLTextAreaElement;
-  //   e.value = "hello";
-  //   // ReactTestUtils.Simulate.keyPress(e, {
-  //   //   key: "Space",
-  //   // });
-  //   ReactTestUtils.Simulate.keyPress(e, {
-  //     key: "Enter",
-  //   });
-  // });
-  // expect(pretty(container.innerHTML)).toMatchSnapshot("reply");
 });
 
 test("show log", async () => {
   const m = jest
-    .spyOn(loadLogsModule, "loadLogsFromFirestore")
+    .spyOn(loadLogsFromFirestoreModule, "loadLogsFromFirestore")
     .mockResolvedValue(MockTalkObject);
 
   // no talkID needed beacuse loadLogsFromFirestore is mocked
   render(<ShowLog talk="" />);
-  await waitFor(() => screen.getByText("🙁"));
-
+  await loadLogsPromise;
+  expect(m).toHaveBeenCalled();
+  expect(screen.getByText("🙁")).toBeTruthy();
   const m2 = jest.spyOn(RegroupDialogModule, "openRegroupDialog");
   fireEvent.click(screen.getByLabelText("menu"));
   fireEvent.click(screen.getByText("Export for Regroup"));
   expect(m2).toHaveBeenCalled();
   expect(m2.mock.calls[0][0]).toMatchSnapshot();
-
   m.mockRestore();
   m2.mockRestore();
 });
-
-// expect(
-//   screen.getByTestId("textarea-export-for-regroup").nodeValue
-// ).toMatchSnapshot();
-
-// const m = jest.spyOn(reactn, "setGlobal");
-// // render(<ShowLog talk="SJSLzd0PCLcJ3Nzlfdc4" />);
-// await loadLogs("SJSLzd0PCLcJ3Nzlfdc4");
-// expect(m.mock.calls).toMatchSnapshot();
-// const m = jest.spyOn(RegroupDialog, "openRegroupDialog");
-// // expect(pretty(container.innerHTML)).toMatchSnapshot();
-// fireEvent.click(await screen.findByLabelText("menu"));
-// fireEvent.click(await screen.findByText("Export for Regroup"));
-// await expect(m).toHaveBeenCalled();
-// m.mockRestore();
-// act(() => {
-//   ReactTestUtils.Simulate.click(container.querySelector("[id=menu]")!);
-// });
-// act(() => {
-//   ReactTestUtils.Simulate.click(
-//     container.querySelector("[id=exportForScrapbox]")!
-//   );
-// });
-// expect(pretty(container.innerHTML)).toMatchSnapshot();
