@@ -18,7 +18,7 @@ export function sendToServer(text: string, newLogs: TLogs) {
     const transaction = Sentry.startTransaction({ name: "getNewTalkID" });
     const span = transaction.startChild({ op: "getNewTalkID" });
 
-    fetch(APIROOT + "web/", {
+    return fetch(APIROOT + "web/", {
       mode: "cors",
       method: "POST",
       body: JSON.stringify(data),
@@ -49,9 +49,9 @@ export function sendToServer(text: string, newLogs: TLogs) {
     // bot is sleeping
     setGlobal({ logs: [...newLogs, BOT_IS_SLEEPING] });
 
-    setTimeout(() => {
+    return new Promise((resolve) => setTimeout(resolve, 1000)).then(() => {
       sendToServer(text, newLogs);
-    }, 1000);
+    });
   }
 }
 

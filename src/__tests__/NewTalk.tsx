@@ -3,9 +3,10 @@ import { initializeGlobalState } from "../initializeGlobalState";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import App from "../App";
 import * as managePreviousTalkIDModule from "../managePreviousTalkID";
-import { getNewTalkIDPromise } from "../NewTalk";
+import { getNewTalkIDPromise, sendToServerPromise } from "../NewTalk";
 import { mockUseState } from "./mockUseState";
-
+import * as sendToServerModule from "../sendToServer";
+import userEvent from "@testing-library/user-event";
 jest.mock("../managePreviousTalkID");
 jest.mock("../getNewTalkIDFromServer");
 
@@ -48,4 +49,30 @@ test("render", async () => {
   render(<App />);
   await getNewTalkIDPromise;
   expect(screen.queryByText("Re-enter to Last Talk")).not.toBeNull();
+});
+
+test("enter", async () => {
+  jest
+    .spyOn(managePreviousTalkIDModule, "getPreviousTalkID")
+    .mockResolvedValue("");
+  jest
+    .spyOn(sendToServerModule, "sendToServer")
+    .mockImplementation(async () => {
+      sendToServerModule._gotResponse([{ user: true, text: "aaa" }], {
+        text: "bbb",
+        last_kw: ["a"],
+        other_kw: ["b"],
+      });
+    });
+
+  const { container } = render(<App />);
+  const textarea = container.querySelector("[id=textarea]");
+  expect(textarea!).not.toBeNull();
+
+  act(() => {
+    userEvent.type(textarea!, "Hello, World!{enter}");
+  });
+  expect(textarea!).toHaveValue("");
+  await sendToServerPromise;
+  expect(container).toMatchSnapshot();
 });

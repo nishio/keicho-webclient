@@ -10,6 +10,7 @@ import { onClickNG } from "./onClickNG";
 import { focusOnTextarea } from "./focusOnTextarea";
 import { getNewTalkIDFromServer } from "./getNewTalkIDFromServer";
 export let getNewTalkIDPromise: Promise<unknown>;
+export let sendToServerPromise: Promise<unknown>;
 
 export const NewTalk = () => {
   const [logs] = useGlobal("logs");
@@ -39,7 +40,7 @@ export const NewTalk = () => {
   const enter = (text: string) => {
     const newLogs = [...logs, { text: text, user: true }];
     setGlobal({ logs: newLogs });
-    sendToServer(text, newLogs);
+    sendToServerPromise = sendToServer(text, newLogs);
   };
 
   const onChange = () => {
