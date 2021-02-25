@@ -18,7 +18,3 @@ export const mockUseState = () => {
     ];
   });
 };
-
-test("mockUseState", () => {
-  mockUseState();
-});

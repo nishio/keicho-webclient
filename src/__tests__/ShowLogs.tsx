@@ -7,7 +7,7 @@ import * as loadLogsFromFirestoreModule from "../loadLogsFromFirestore";
 import * as MockTalkObject from "../talkObject.json";
 import { loadLogsPromise, ShowLog } from "../ShowLog";
 import * as RegroupDialogModule from "../RegroupDialog";
-import { mockUseState } from "./mockUseState";
+import { mockUseState } from "../testutil/mockUseState";
 
 jest.spyOn(window, "scrollTo").mockImplementation(() => {});
 

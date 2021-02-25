@@ -4,7 +4,7 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 import App from "../App";
 import * as managePreviousTalkIDModule from "../managePreviousTalkID";
 import { getNewTalkIDPromise, sendToServerPromise } from "../NewTalk";
-import { mockUseState } from "./mockUseState";
+import { mockUseState } from "../testutil/mockUseState";
 import * as sendToServerModule from "../sendToServer";
 import userEvent from "@testing-library/user-event";
 jest.mock("../managePreviousTalkID");
