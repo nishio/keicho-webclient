@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import "./chat_style.scss";
-import BotIcon from "./icons8-bot-32.png";
+// import BotIcon from "./icons8-bot-32.png";
+import BotIcon from "./robot.png";
 
 const pretty = (text: string) => {
   const ret: ReactNode[] = [];

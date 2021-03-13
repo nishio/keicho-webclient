@@ -68,7 +68,7 @@ exports[`enter 1`] = `
           <figure>
             <img
               alt="nisbot"
-              src="icons8-bot-32.png"
+              src="robot.png"
             />
           </figure>
           <div
@@ -206,7 +206,7 @@ exports[`render 1`] = `
           <figure>
             <img
               alt="nisbot"
-              src="icons8-bot-32.png"
+              src="robot.png"
             />
           </figure>
           <div
