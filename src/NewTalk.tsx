@@ -6,7 +6,7 @@ import { scrollToBottom } from "./scrollToBottom";
 import { setGlobal, useGlobal } from "reactn";
 import { gotNewTalkID } from "./getNewTalkID";
 import { sendToServer } from "./sendToServer";
-import { onClickNG } from "./onClickNG";
+import { onClickGood, onClickNG } from "./onClickNG";
 import { focusOnTextarea } from "./focusOnTextarea";
 import { getNewTalkIDFromServer } from "./getNewTalkIDFromServer";
 export let getNewTalkIDPromise: Promise<unknown>;
@@ -84,6 +84,7 @@ export const NewTalk = () => {
     if (props.visible) {
       return (
         <>
+          <IconButton onClick={onClickGood}>🙂</IconButton>
           <IconButton onClick={onClickNG}>🙁</IconButton>
           {NGKW_Buttons}
           {UPKW_Buttons}

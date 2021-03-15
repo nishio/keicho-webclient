@@ -104,6 +104,20 @@ exports[`enter 1`] = `
       <span
         class="MuiIconButton-label"
       >
+        🙂
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
+    <button
+      class="MuiButtonBase-root MuiIconButton-root"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiIconButton-label"
+      >
         🙁
       </span>
       <span
@@ -234,6 +248,20 @@ exports[`render 1`] = `
       style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0);"
       tabindex="-1"
     />
+    <button
+      class="MuiButtonBase-root MuiIconButton-root"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="MuiIconButton-label"
+      >
+        🙂
+      </span>
+      <span
+        class="MuiTouchRipple-root"
+      />
+    </button>
     <button
       class="MuiButtonBase-root MuiIconButton-root"
       tabindex="0"
