@@ -6,6 +6,7 @@ import {
 import { getGlobal, setGlobal } from "reactn";
 import { APIROOT } from "./App";
 import * as Sentry from "@sentry/browser";
+import { updateTalk } from "./updateTalk";
 
 type TLogs = { text: string; user: boolean }[];
 
@@ -13,6 +14,7 @@ export function sendToServer(text: string, newLogs: TLogs) {
   const g = getGlobal();
   if (g.TalkID !== "") {
     const data = { user: "nobody", talk: g.TalkID, text: text };
+    updateTalk(g.TalkID, text);
     setGlobal({ logs: [...newLogs, BOT_IS_THINKING] });
 
     const transaction = Sentry.startTransaction({ name: "getNewTalkID" });
