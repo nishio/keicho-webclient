@@ -157,6 +157,7 @@ exports[`enter 1`] = `
     <hr
       id="bottom"
     />
+    <div />
   </div>
 </div>
 `;
@@ -279,6 +280,7 @@ exports[`render 1`] = `
     <hr
       id="bottom"
     />
+    <div />
   </div>
 </div>
 `;
