@@ -20,11 +20,3 @@ export const updateTalk = (TalkID: string, text: string): Promise<unknown> => {
       }
     });
 };
-// @ts-ignore
-window.get_list = () => {
-  localDB.talks.orderBy("last_modified").toArray((xs) => {
-    xs.forEach((x) => {
-      console.log(x);
-    });
-  });
-};

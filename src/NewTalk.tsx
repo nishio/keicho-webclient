@@ -9,6 +9,7 @@ import { sendToServer } from "./sendToServer";
 import { onClickGood, onClickNG } from "./onClickNG";
 import { focusOnTextarea } from "./focusOnTextarea";
 import { getNewTalkIDFromServer } from "./getNewTalkIDFromServer";
+import { TalkListDialog } from "./TalkListDialog";
 export let getNewTalkIDPromise: Promise<unknown>;
 export let sendToServerPromise: Promise<unknown>;
 
@@ -114,6 +115,7 @@ export const NewTalk = () => {
 
       <InputArea visible={canInput} />
       <hr id="bottom" />
+      <TalkListDialog />
     </div>
   );
 };

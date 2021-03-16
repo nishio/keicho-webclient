@@ -5,6 +5,7 @@ import { Menu } from "@material-ui/core";
 import { openNewTalk } from "./openNewTalk";
 import { openHelp } from "./openHelp";
 import { AutoCloseMenuItem } from "./AutoCloseMenuItem";
+import { openTalkListDialog } from "./TalkListDialog";
 
 export let handleClose = () => {};
 
@@ -43,6 +44,7 @@ export const DropdownMenuCommon = (props: React.PropsWithChildren<{}>) => {
           title="New Talk"
         />
         {props.children}
+        <AutoCloseMenuItem onClick={openTalkListDialog} title="Old Talk" />
       </Menu>
     </>
   );
