@@ -1,6 +1,7 @@
 {
   "short_name": "Keicho",
-  "name": "聞き出しチャットシステム Keicho (傾聴, けいちょう)",
+  "name": "聞き出しチャットシステム Keicho",
+  "description": "聞き出しチャットシステム Keicho (傾聴, けいちょう)",
   "icons": [
     {
       "src": "robot.png",
@@ -9,7 +10,7 @@
     }
   ],
   "start_url": ".",
-  "display": "standalone",
+  "display": "browser",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
