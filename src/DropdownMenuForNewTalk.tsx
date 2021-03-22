@@ -1,7 +1,4 @@
 import React from "react";
-import { showLogInNewWindow } from "./showLogInNewWindow";
-import { ReEnterLastTalk } from "./ReEnterLastTalk";
-import { ShowLastTalk } from "./ShowLastTalk";
 import { DropdownMenuCommon } from "./DropdownMenuCommon";
 import { AutoCloseMenuItem } from "./AutoCloseMenuItem";
 import { openShareURLDialog } from "./ShareURLDialog";
