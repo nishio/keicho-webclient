@@ -6,7 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ITalks, localDB } from "./localDB";
 import { loadLogs } from "./loadLogs";
-import { setGlobal } from "reactn";
+import { setGlobal, useEffect, useGlobal } from "reactn";
 
 export const datetimeToStr = (x: number) => {
   const d = new Date(x);
@@ -20,24 +20,24 @@ export const datetimeToStr = (x: number) => {
 };
 
 export const openTalkListDialog = () => {
-  _openTalkListDialog();
+  setGlobal({ dialog: "TalkList" });
 };
 
-let _openTalkListDialog: () => void;
 export const TalkListDialog = () => {
-  const [open, setOpen] = React.useState(false);
+  const [dialog, setDialog] = useGlobal("dialog");
+  const open = dialog === "TalkList";
   const [talks, setTalks] = React.useState([] as ITalks[]);
 
-  _openTalkListDialog = () => {
-    localDB.talks.orderBy("last_modified").toArray((talks) => {
-      setTalks(talks);
-    });
-
-    setOpen(true);
-  };
+  useEffect(() => {
+    if (open) {
+      localDB.talks.orderBy("last_modified").toArray((talks) => {
+        setTalks(talks);
+      });
+    }
+  }, [open]);
 
   const handleClose = () => {
-    setOpen(false);
+    setDialog(null);
   };
   const list = talks.map((x) => {
     if (x.last_modified === undefined) {

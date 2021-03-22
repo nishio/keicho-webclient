@@ -16,7 +16,7 @@ const INITIAL_GLOBAL_STATE = {
   canInput: true,
   previousTalkID: "",
   talkObject: undefined as TTalkObject,
-  dialog: null as "ShareURL" | "Scrapbox" | "Regroup" | null,
+  dialog: null as "ShareURL" | "Scrapbox" | "Regroup" | "TalkList" | null,
 };
 
 export const initializeGlobalState = () => {
