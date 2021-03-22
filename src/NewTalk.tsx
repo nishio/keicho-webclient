@@ -100,7 +100,7 @@ export const NewTalk = () => {
     return null;
   };
   return (
-    <div className="App">
+    <>
       <ButtonAppBarForNewTalk />
       <ChatLine logs={logs}></ChatLine>
       <TextareaAutosize
@@ -118,6 +118,6 @@ export const NewTalk = () => {
       <hr id="bottom" />
       <TalkListDialog />
       <ShareURLDialog />
-    </div>
+    </>
   );
 };

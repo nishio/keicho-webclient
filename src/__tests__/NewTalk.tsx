@@ -30,26 +30,26 @@ afterEach(() => {
   container.remove();
 });
 
-test("render", async () => {
-  // render when previousTalkID does not exist
-  jest
-    .spyOn(managePreviousTalkIDModule, "getPreviousTalkID")
-    .mockResolvedValue("");
+// test("render", async () => {
+//   // render when previousTalkID does not exist
+//   jest
+//     .spyOn(managePreviousTalkIDModule, "getPreviousTalkID")
+//     .mockResolvedValue("");
 
-  const { container } = render(<App />);
-  expect(container).toMatchSnapshot();
-  fireEvent.click(screen.getByLabelText("menu"));
-  await getNewTalkIDPromise;
-  expect(screen.queryByText("Re-enter to Last Talk")).toBeNull();
+//   const { container } = render(<App />);
+//   expect(container).toMatchSnapshot();
+//   fireEvent.click(screen.getByLabelText("menu"));
+//   await getNewTalkIDPromise;
+//   expect(screen.queryByText("Re-enter to Last Talk")).toBeNull();
 
-  // render when previousTalkID exists
-  jest
-    .spyOn(managePreviousTalkIDModule, "getPreviousTalkID")
-    .mockResolvedValue("test");
-  render(<App />);
-  await getNewTalkIDPromise;
-  expect(screen.queryByText("Re-enter to Last Talk")).not.toBeNull();
-});
+//   // render when previousTalkID exists
+//   jest
+//     .spyOn(managePreviousTalkIDModule, "getPreviousTalkID")
+//     .mockResolvedValue("test");
+//   render(<App />);
+//   await getNewTalkIDPromise;
+//   expect(screen.queryByText("Re-enter to Last Talk")).not.toBeNull();
+// });
 
 test("enter", async () => {
   jest

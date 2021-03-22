@@ -10,14 +10,18 @@ export const APIROOT =
     ? "https://keicho.herokuapp.com/api/"
     : "http://localhost:5000/api/";
 
-function App() {
+const getTalkID = (): string => {
   const hash = new URLSearchParams(window.location.hash.substring(1));
   if (hash.has("talk")) {
-    const talk = hash.get("talk") as string;
-    return <ShowLog talk={talk} />;
-  } else {
-    return <NewTalk />;
+    return hash.get("talk") as string;
   }
+  return "";
+};
+
+function App() {
+  const TalkID = getTalkID();
+  const main = TalkID !== "" ? <ShowLog talk={TalkID} /> : <NewTalk />;
+  return <div className="App">{main}</div>;
 }
 
 export default App;

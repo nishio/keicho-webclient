@@ -6,7 +6,7 @@ exports[`enter 1`] = `
     class="App"
   >
     <div
-      class="makeStyles-root-3"
+      class="makeStyles-root-1"
     >
       <header
         class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary MuiPaper-elevation4"
@@ -15,9 +15,11 @@ exports[`enter 1`] = `
           class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
         >
           <h6
-            class="MuiTypography-root makeStyles-title-4 MuiTypography-h6"
+            class="MuiTypography-root makeStyles-title-2 MuiTypography-h6"
           >
-            Keicho
+            <span>
+              Keicho
+            </span>
           </h6>
           <button
             aria-label="menu"
@@ -158,128 +160,6 @@ exports[`enter 1`] = `
       id="bottom"
     />
     <div />
-  </div>
-</div>
-`;
-
-exports[`render 1`] = `
-<div>
-  <div
-    class="App"
-  >
-    <div
-      class="makeStyles-root-1"
-    >
-      <header
-        class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary MuiPaper-elevation4"
-      >
-        <div
-          class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
-        >
-          <h6
-            class="MuiTypography-root makeStyles-title-2 MuiTypography-h6"
-          >
-            Keicho
-          </h6>
-          <button
-            aria-label="menu"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeEnd"
-            id="menu"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="MuiIconButton-label"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"
-                />
-              </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </button>
-        </div>
-      </header>
-    </div>
-    <div
-      class="line__container"
-    >
-      <div
-        class="line__contents"
-      >
-        <div
-          class="line__left"
-        >
-          <figure>
-            <img
-              alt="nisbot"
-              src="robot.png"
-            />
-          </figure>
-          <div
-            class="line__left-text"
-          >
-            <div
-              class="text"
-            >
-              あなたはこの会話で何が起きて欲しいですか？
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <textarea
-      aria-label="textarea"
-      id="textarea"
-      placeholder=""
-      rows="1"
-      style="height: -4px; overflow: hidden;"
-    />
-    <textarea
-      aria-hidden="true"
-      readonly=""
-      style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0);"
-      tabindex="-1"
-    />
-    <button
-      class="MuiButtonBase-root MuiIconButton-root"
-      tabindex="0"
-      type="button"
-    >
-      <span
-        class="MuiIconButton-label"
-      >
-        🙂
-      </span>
-      <span
-        class="MuiTouchRipple-root"
-      />
-    </button>
-    <button
-      class="MuiButtonBase-root MuiIconButton-root"
-      tabindex="0"
-      type="button"
-    >
-      <span
-        class="MuiIconButton-label"
-      >
-        🙁
-      </span>
-      <span
-        class="MuiTouchRipple-root"
-      />
-    </button>
-    <hr
-      id="bottom"
-    />
     <div />
   </div>
 </div>
