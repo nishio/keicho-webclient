@@ -5,15 +5,20 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { TextareaAutosize } from "@material-ui/core";
-import { getGlobal } from "reactn";
+import { getGlobal, setGlobal, useGlobal } from "reactn";
 
-export let openScrapboxDialog: () => void;
+export const openScrapboxDialog = () => {
+  setGlobal({ dialog: "Scrapbox" });
+};
 
 export const ScrapboxDialog = () => {
-  const [open, setOpen] = React.useState(false);
+  const [dialog, setDialog] = useGlobal("dialog");
+  const open = dialog === "Scrapbox";
   const [text, setText] = React.useState("");
+
   const [roboIcon, setRoboIcon] = React.useState("[nisbot.icon]");
   const [humanIcon, setHumanIcon] = React.useState("[nishio.icon]");
+  const projectName = "nishio";
 
   const g = getGlobal();
   const talkObject = g.talkObject;
@@ -44,12 +49,8 @@ export const ScrapboxDialog = () => {
     setText(lines.join("\n"));
   }, [roboIcon, humanIcon, open, talkObject]);
 
-  openScrapboxDialog = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
-    setOpen(false);
+    setDialog(null);
   };
 
   const onChangeRoboIcon = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +63,18 @@ export const ScrapboxDialog = () => {
   const handleCopy = () => {
     navigator.clipboard.writeText(text).then(() => {
       alert("copy ok");
-      setOpen(false);
+      setDialog(null);
+    });
+  };
+
+  let title = new Date().toDateString();
+  if (talkObject?.log[1] !== undefined) {
+    title = talkObject!.log[1][1];
+  }
+
+  const handleOpen = () => {
+    navigator.clipboard.writeText(text).then(() => {
+      window.open(`https://scrapbox.io/${projectName}/${title}`, "_blank");
     });
   };
 
@@ -78,22 +90,28 @@ export const ScrapboxDialog = () => {
         <DialogTitle id="form-dialog-title">Export for Scrapbox</DialogTitle>
         <DialogContent style={{ padding: "0px 24px" }}>
           {/* <DialogContentText>...</DialogContentText> */}
-          <p>
-            Robo Icon:{" "}
-            <input
-              type="text"
-              defaultValue={roboIcon}
-              onChange={onChangeRoboIcon}
-            ></input>
-          </p>
-          <p>
-            Human Icon:{" "}
-            <input
-              type="text"
-              defaultValue={humanIcon}
-              onChange={onChangeHumanIcon}
-            ></input>
-          </p>
+          <label>Robo Icon: </label>
+          <input
+            type="text"
+            defaultValue={roboIcon}
+            onChange={onChangeRoboIcon}
+          ></input>
+          <label>Human Icon: </label>
+          <input
+            type="text"
+            defaultValue={humanIcon}
+            onChange={onChangeHumanIcon}
+          ></input>
+          <Button onClick={handleCopy} color="primary">
+            Copy Text
+          </Button>
+
+          <label>Project Name: </label>
+          <input type="text" defaultValue={projectName}></input>
+          <Button onClick={handleOpen} color="primary">
+            Copy and Open Scrapbox
+          </Button>
+
           <TextareaAutosize
             autoFocus
             id="multiline"
@@ -101,15 +119,10 @@ export const ScrapboxDialog = () => {
             value={text}
           />
         </DialogContent>
+
         <DialogActions>
-          <Button onClick={handleCopy} color="primary">
-            Copy
-          </Button>
           <Button onClick={handleClose} color="primary">
             Close
-          </Button>
-          <Button onClick={handleClose} color="primary" disabled>
-            Import
           </Button>
         </DialogActions>
       </Dialog>
