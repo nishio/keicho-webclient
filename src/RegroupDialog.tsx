@@ -1,23 +1,65 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { TextareaAutosize } from "@material-ui/core";
+import { getGlobal, setGlobal, useGlobal } from "reactn";
 
-export let openRegroupDialog: (lines: string[]) => void;
+export const openRegroupDialog = () => {
+  setGlobal({ dialog: "Regroup" });
+};
+
+const getLines = () => {
+  const g = getGlobal();
+  const talkObject = g.talkObject;
+  if (talkObject === undefined) {
+    return;
+  }
+
+  const lines: string[] = [];
+  const litsk: { [key: number]: string[] } = {};
+  if (talkObject.line_id_to_selected_keywords) {
+    talkObject.line_id_to_selected_keywords.forEach((x: [number, string[]]) => {
+      litsk[x[0]] = x[1];
+    });
+  }
+
+  talkObject.log.forEach((x: [number, string], i: number) => {
+    if (x[0]) {
+      // is user
+      lines.push(x[1]); // x.text
+      lines.push(""); // blankline
+    } else {
+      lines.push(x[1]); // x.text
+      if (litsk[i]) {
+        litsk[i].forEach((kw) => {
+          lines.push(kw); // selected keywords
+        });
+      }
+    }
+  });
+
+  return lines;
+};
 
 export const RegroupDialog = () => {
-  const [open, setOpen] = React.useState(false);
+  const [dialog, setDialog] = useGlobal("dialog");
+  const open = dialog === "Regroup";
   const [text, setText] = React.useState("");
-  openRegroupDialog = (lines: string[]) => {
-    setText(lines.join("\n"));
-    setOpen(true);
-  };
+
+  useEffect(() => {
+    if (open) {
+      const lines = getLines();
+      if (lines !== undefined) {
+        setText(lines.join("\n"));
+      }
+    }
+  }, [open]);
 
   const handleClose = () => {
-    setOpen(false);
+    setDialog(null);
   };
 
   return (

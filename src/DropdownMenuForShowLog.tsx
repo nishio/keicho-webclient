@@ -1,14 +1,14 @@
 import React from "react";
-import { exportForRegroup } from "./exportForRegroup";
 import { DropdownMenuCommon } from "./DropdownMenuCommon";
 import { AutoCloseMenuItem } from "./AutoCloseMenuItem";
 import { openScrapboxDialog } from "./ScrapboxDialog";
+import { openRegroupDialog } from "./RegroupDialog";
 
 export const DropdownMenuForShowLog = () => {
   return (
     <DropdownMenuCommon>
       <AutoCloseMenuItem
-        onClick={exportForRegroup}
+        onClick={openRegroupDialog}
         title="Export for Regroup"
         id="exportForRegroup"
       />

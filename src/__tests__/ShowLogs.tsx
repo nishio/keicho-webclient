@@ -39,11 +39,8 @@ test("show log", async () => {
   await loadLogsPromise;
   expect(m).toHaveBeenCalled();
   expect(screen.getByText("🙁")).toBeTruthy();
-  const m2 = jest.spyOn(RegroupDialogModule, "openRegroupDialog");
   fireEvent.click(screen.getByLabelText("menu"));
   fireEvent.click(screen.getByText("Export for Regroup"));
-  expect(m2).toHaveBeenCalled();
-  expect(m2.mock.calls[0][0]).toMatchSnapshot();
+  expect(screen.getByTestId("textarea-export-for-regroup")).toMatchSnapshot();
   m.mockRestore();
-  m2.mockRestore();
 });
