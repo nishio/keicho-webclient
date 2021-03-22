@@ -1,9 +1,9 @@
 import { unmountComponentAtNode } from "react-dom";
 import { initializeGlobalState } from "../initializeGlobalState";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import App from "../App";
 import * as managePreviousTalkIDModule from "../managePreviousTalkID";
-import { getNewTalkIDPromise, sendToServerPromise } from "../NewTalk";
+import { sendToServerPromise } from "../NewTalk";
 import { mockUseState } from "../testutil/mockUseState";
 import * as sendToServerModule from "../sendToServer";
 import userEvent from "@testing-library/user-event";
