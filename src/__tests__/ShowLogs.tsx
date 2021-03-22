@@ -6,7 +6,6 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 import * as loadLogsFromFirestoreModule from "../loadLogsFromFirestore";
 import * as MockTalkObject from "../talkObject.json";
 import { loadLogsPromise, ShowLog } from "../ShowLog";
-import * as RegroupDialogModule from "../RegroupDialog";
 import { mockUseState } from "../testutil/mockUseState";
 
 jest.spyOn(window, "scrollTo").mockImplementation(() => {});
