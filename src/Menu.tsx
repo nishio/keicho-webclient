@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { DropdownMenuForNewTalk } from "./DropdownMenuForNewTalk";
 import { DropdownMenuForShowLog } from "./DropdownMenuForShowLog";
+import { openHelp } from "./openHelp";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +26,7 @@ export function ButtonAppBarForNewTalk() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Keicho
+            <span onClick={openHelp}>Keicho</span>
           </Typography>
           <DropdownMenuForNewTalk />
         </Toolbar>
@@ -42,7 +43,7 @@ export function ButtonAppBarForShowLog() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Keicho:Log
+            <span onClick={openHelp}>Keicho:Log</span>
           </Typography>
           <DropdownMenuForShowLog />
         </Toolbar>
