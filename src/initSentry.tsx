@@ -1,5 +1,6 @@
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
+import { inDeveleop } from "./Debug";
 
 let shownReportDialog = false;
 let _suppressDialog = false;
@@ -9,6 +10,9 @@ export const suppressDialog = () => {
 };
 
 export const initSentry = () => {
+  if (inDeveleop()) {
+    return;
+  }
   Sentry.init({
     dsn:
       "https://e4908ccb65fa4e7cb63ff1e84b55ba1f@o376998.ingest.sentry.io/5627136",
