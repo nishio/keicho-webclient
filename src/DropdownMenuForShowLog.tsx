@@ -1,8 +1,8 @@
 import React from "react";
 import { exportForRegroup } from "./exportForRegroup";
-import { exportForScrapbox } from "./exportForScrapbox";
 import { DropdownMenuCommon } from "./DropdownMenuCommon";
 import { AutoCloseMenuItem } from "./AutoCloseMenuItem";
+import { openScrapboxDialog } from "./ScrapboxDialog";
 
 export const DropdownMenuForShowLog = () => {
   return (
@@ -13,7 +13,7 @@ export const DropdownMenuForShowLog = () => {
         id="exportForRegroup"
       />
       <AutoCloseMenuItem
-        onClick={exportForScrapbox}
+        onClick={openScrapboxDialog}
         title="Export for Scrapbox"
         id="exportForScrapbox"
       />
