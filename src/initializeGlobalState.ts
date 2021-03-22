@@ -16,6 +16,7 @@ const INITIAL_GLOBAL_STATE = {
   canInput: true,
   previousTalkID: "",
   talkObject: undefined as TTalkObject,
+  dialog: null as string | null,
 };
 
 export const initializeGlobalState = () => {
