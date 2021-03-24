@@ -1,4 +1,5 @@
 import { setGlobal } from "reactn";
+import { defaultConfig } from "./Config";
 import { INITIAL_LOGS, PRESET_LOGS, USE_PRESET } from "./PRESET_MESSAGES";
 
 type TTalkObject =
@@ -17,6 +18,7 @@ const INITIAL_GLOBAL_STATE = {
   previousTalkID: "",
   talkObject: undefined as TTalkObject,
   dialog: null as "ShareURL" | "Scrapbox" | "Regroup" | "TalkList" | null,
+  config: defaultConfig,
 };
 
 export const initializeGlobalState = () => {

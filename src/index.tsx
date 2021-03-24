@@ -6,9 +6,12 @@ import reportWebVitals from "./reportWebVitals";
 import { initializeGlobalState } from "./initializeGlobalState";
 import * as Sentry from "@sentry/react";
 import { initSentry } from "./initSentry";
+import Config from "./Config";
 
 initSentry();
 initializeGlobalState();
+Config.load();
+
 ReactDOM.render(
   // <React.StrictMode>
   <Sentry.ErrorBoundary fallback="An error has occurred" showDialog>

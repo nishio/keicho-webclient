@@ -5,7 +5,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { TextareaAutosize } from "@material-ui/core";
-import { getGlobal, setGlobal, useGlobal } from "reactn";
+import { setGlobal, useGlobal } from "reactn";
+import { updateGlobal } from "./updateGlobal";
+import Config from "./Config";
 
 export const openScrapboxDialog = () => {
   setGlobal({ dialog: "Scrapbox" });
@@ -16,12 +18,12 @@ export const ScrapboxDialog = () => {
   const open = dialog === "Scrapbox";
   const [text, setText] = React.useState("");
 
-  const [roboIcon, setRoboIcon] = React.useState("[nisbot.icon]");
-  const [humanIcon, setHumanIcon] = React.useState("[nishio.icon]");
-  const projectName = "nishio";
+  const [g] = useGlobal();
 
-  const g = getGlobal();
   const talkObject = g.talkObject;
+  const roboIcon = g.config.robo_icon;
+  const humanIcon = g.config.human_icon;
+  const projectName = g.config.project_name;
 
   useEffect(() => {
     const lines: string[] = [];
@@ -50,20 +52,29 @@ export const ScrapboxDialog = () => {
   }, [roboIcon, humanIcon, open, talkObject]);
 
   const handleClose = () => {
+    Config.save();
     setDialog(null);
   };
 
   const onChangeRoboIcon = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRoboIcon(e.target.value);
+    updateGlobal((g) => {
+      g.config.robo_icon = e.target.value;
+    });
   };
   const onChangeHumanIcon = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setHumanIcon(e.target.value);
+    updateGlobal((g) => {
+      g.config.human_icon = e.target.value;
+    });
+  };
+  const onChangeProjectName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateGlobal((g) => {
+      g.config.project_name = e.target.value;
+    });
   };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(text).then(() => {
-      alert("copy ok");
-      setDialog(null);
+      handleClose();
     });
   };
 
@@ -107,7 +118,11 @@ export const ScrapboxDialog = () => {
           </Button>
 
           <label>Project Name: </label>
-          <input type="text" defaultValue={projectName}></input>
+          <input
+            type="text"
+            defaultValue={projectName}
+            onChange={onChangeProjectName}
+          ></input>
           <Button onClick={handleOpen} color="primary">
             Copy and Open Scrapbox
           </Button>
