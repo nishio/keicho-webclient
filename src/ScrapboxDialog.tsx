@@ -105,31 +105,45 @@ export const ScrapboxDialog = () => {
         <DialogTitle id="form-dialog-title">Export for Scrapbox</DialogTitle>
         <DialogContent style={{ padding: "0px 24px" }}>
           {/* <DialogContentText>...</DialogContentText> */}
-          <label>Robo Icon: </label>
-          <input
-            type="text"
-            defaultValue={roboIcon}
-            onChange={onChangeRoboIcon}
-          ></input>
-          <label>Human Icon: </label>
-          <input
-            type="text"
-            defaultValue={humanIcon}
-            onChange={onChangeHumanIcon}
-          ></input>
-          <Button onClick={handleCopy} color="primary">
-            Copy Text
-          </Button>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <div>
+              <label>Robo Icon: </label>
+              <input
+                type="text"
+                defaultValue={roboIcon}
+                onChange={onChangeRoboIcon}
+              ></input>
+            </div>
+            <div>
+              <label>Human Icon: </label>
+              <input
+                type="text"
+                defaultValue={humanIcon}
+                onChange={onChangeHumanIcon}
+              ></input>
+            </div>
+            <div>
+              <Button onClick={handleCopy} color="primary">
+                Copy Text
+              </Button>
+            </div>
+          </div>
 
-          <label>Project Name: </label>
-          <input
-            type="text"
-            defaultValue={projectName}
-            onChange={onChangeProjectName}
-          ></input>
-          <Button onClick={handleOpen} color="primary">
-            Copy and Open Scrapbox
-          </Button>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <div>
+              <label>Project Name: </label>
+              <input
+                type="text"
+                defaultValue={projectName}
+                onChange={onChangeProjectName}
+              ></input>
+            </div>
+            <div>
+              <Button onClick={handleOpen} color="primary">
+                Copy and Open Scrapbox
+              </Button>
+            </div>
+          </div>
 
           <TextareaAutosize
             autoFocus
