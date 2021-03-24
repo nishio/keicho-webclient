@@ -83,9 +83,13 @@ export const ScrapboxDialog = () => {
     title = talkObject!.log[1][1];
   }
 
+  const body = "\n\n\n";
   const handleOpen = () => {
     navigator.clipboard.writeText(text).then(() => {
-      window.open(`https://scrapbox.io/${projectName}/${title}`, "_blank");
+      window.open(
+        `https://scrapbox.io/${projectName}/${title}?body=${body}`,
+        "_blank"
+      );
     });
   };
 
