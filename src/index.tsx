@@ -7,6 +7,12 @@ import { initializeGlobalState } from "./initializeGlobalState";
 import * as Sentry from "@sentry/react";
 import { initSentry } from "./initSentry";
 import Config from "./Config";
+import addReactNDevTools from "reactn-devtools";
+import { inDeveleop } from "./Debug";
+
+if (inDeveleop()) {
+  addReactNDevTools({ trace: true, traceLimit: 25 });
+}
 
 initSentry();
 initializeGlobalState();
