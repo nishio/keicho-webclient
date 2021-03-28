@@ -28,6 +28,7 @@ export function loadLogs(talk: string) {
       return setGlobal({
         logs: [{ user: false, text: "No such document!" }],
         talkObject: null,
+        TalkID: talk,
       });
     });
 }
