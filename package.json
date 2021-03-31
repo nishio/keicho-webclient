@@ -24,6 +24,7 @@
     "react-scripts": "4.0.1",
     "reactn": "^2.2.7",
     "reactn-devtools": "^1.1.0",
+    "redux": "^4.0.5",
     "typescript": "^4.1.5",
     "web-vitals": "^0.2.4"
   },
