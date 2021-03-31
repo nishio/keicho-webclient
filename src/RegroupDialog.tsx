@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { TextareaAutosize } from "@material-ui/core";
+// import { TextareaAutosize } from "@material-ui/core";
 import { getGlobal, setGlobal, useGlobal } from "reactn";
 import { APIROOT } from "./App";
 
@@ -56,24 +56,23 @@ const invoke = () => {
     headers: {
       "Content-Type": "application/json",
     },
-  })
-    .then((response) => {
-      return response.text();
-    })
-    .then((text) => {
-      console.log(text);
-      alert(text);
-    });
+  }).then((response) => {
+    return response.text();
+  });
 };
 
 export const RegroupDialog = () => {
   const [dialog, setDialog] = useGlobal("dialog");
   const open = dialog === "Regroup";
   // const [text, setText] = React.useState("");
+  const [mapid, setMapID] = useState("");
 
   useEffect(() => {
+    setMapID("");
     if (open) {
-      invoke();
+      invoke().then((mapid) => {
+        setMapID(mapid);
+      });
       // const lines = getLines();
       // if (lines !== undefined) {
       //   setText(lines.join("\n"));
@@ -85,14 +84,18 @@ export const RegroupDialog = () => {
     setDialog(null);
   };
 
+  const url = `https://regroup.netlify.app/#/key=${mapid}`;
+  const handleOpen = () => {
+    window.open(url, "_blank");
+  };
   return (
     <div>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-        fullWidth={true}
-        fullScreen={true}
+        // fullWidth={true}
+        // fullScreen={true}
       >
         <DialogTitle id="form-dialog-title">Export for Regroup</DialogTitle>
         <DialogContent style={{ padding: "0px 24px" }}>
@@ -106,8 +109,16 @@ export const RegroupDialog = () => {
             // rowsMin={30}
             // onChange={onChange}
           /> */}
+          {!mapid ? "generating" : null}
+          {mapid ? url : null}
         </DialogContent>
         <DialogActions>
+          {mapid ? (
+            <Button onClick={handleOpen} color="primary">
+              Open URL
+            </Button>
+          ) : null}
+
           <Button onClick={handleClose} color="primary">
             Close
           </Button>
