@@ -18,7 +18,7 @@ export const updateLogs = (talkObject: any) => {
 };
 
 export function loadLogs(talk: string) {
-  return setGlobal({ logs: LOADING })
+  return setGlobal({ logs: LOADING, TalkID: talk })
     .then(() => {
       return loadLogsFromFirestore(talk);
     })
@@ -28,7 +28,7 @@ export function loadLogs(talk: string) {
       return setGlobal({
         logs: [{ user: false, text: "No such document!" }],
         talkObject: null,
-        TalkID: talk,
+        TalkID: "",
       });
     });
 }
