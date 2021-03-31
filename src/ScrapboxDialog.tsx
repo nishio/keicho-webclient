@@ -86,6 +86,7 @@ export const ScrapboxDialog = () => {
   const url = `https://keicho.netlify.app/#talk=${g.TalkID}`;
   const body = encodeURIComponent(`\n\n\n${url}`);
   const handleOpen = () => {
+    const title = (document.getElementById("title") as HTMLInputElement).value;
     navigator.clipboard.writeText(text).then(() => {
       window.open(
         `https://scrapbox.io/${projectName}/${title}?body=${body}`,
@@ -138,6 +139,10 @@ export const ScrapboxDialog = () => {
                 defaultValue={projectName}
                 onChange={onChangeProjectName}
               ></input>
+            </div>
+            <div>
+              <label>Title: </label>
+              <input type="text" defaultValue={title} id="title"></input>
             </div>
             <div>
               <Button onClick={handleOpen} color="primary">
