@@ -4,10 +4,11 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { ITalks, localDB } from "./localDB";
+import { isTalk, ITalks, localDB } from "./localDB";
 import { loadLogs } from "./loadLogs";
 import { setGlobal, useEffect, useGlobal } from "reactn";
 import { List, ListItem } from "@material-ui/core";
+import { get_record } from "./updateTalk";
 
 export const datetimeToStr = (x: number) => {
   const d = new Date(x);
@@ -43,6 +44,38 @@ export const TalkListDialog = () => {
   const handleClose = () => {
     setDialog(null);
   };
+  const handleExport = () => {
+    const xs = talks.filter((x) => x.last_modified !== undefined);
+    const data = JSON.stringify(xs);
+    navigator.clipboard.writeText(data).then(() => {
+      alert("copied!");
+    });
+  };
+
+  const handleImport = () => {
+    const data = prompt("paste exported data");
+    if (data === null || data === "") {
+      return;
+    }
+    const imported = JSON.parse(data);
+    imported.forEach((x: any) => {
+      if (isTalk(x)) {
+        get_record(x.TalkID)
+          .first()
+          .then((y) => {
+            if (y === undefined) {
+              localDB.talks.add(x);
+            } else {
+              get_record(x.TalkID).modify({
+                last_modified: x.last_modified,
+                first_line: x.first_line,
+              });
+            }
+          });
+      }
+    });
+  };
+
   const list = talks.map((x) => {
     if (x.last_modified === undefined) {
       return null;
@@ -96,6 +129,13 @@ export const TalkListDialog = () => {
           </List>
         </DialogContent>
         <DialogActions>
+          <Button onClick={handleExport} color="primary">
+            Export(Copy)
+          </Button>
+          <Button onClick={handleImport} color="primary">
+            Import
+          </Button>
+
           <Button onClick={handleClose} color="primary">
             Close
           </Button>

@@ -2,9 +2,10 @@ import { suppressDialog } from "./initSentry";
 import { localDB } from "./localDB";
 import * as Sentry from "@sentry/react";
 
-const get_record = (TalkID: string) => {
+export const get_record = (TalkID: string) => {
   return localDB.talks.where("TalkID").equals(TalkID);
 };
+
 export const updateTalk = (TalkID: string, text: string): Promise<unknown> => {
   return get_record(TalkID)
     .first()

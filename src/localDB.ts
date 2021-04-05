@@ -10,6 +10,13 @@ export interface ITalks {
   last_modified?: number;
   first_line?: string;
 }
+export const isTalk = (x: any): x is ITalks => {
+  if ("TalkID" in x && typeof x.TalkID === "string") {
+    return true;
+  }
+  return false;
+};
+
 class MyAppDatabase extends Dexie {
   // Declare implicit table properties.
   // (just to inform Typescript. Instanciated by Dexie in stores() method)
