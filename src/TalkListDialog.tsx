@@ -30,14 +30,18 @@ export const TalkListDialog = () => {
   const open = dialog === "TalkList";
   const [talks, setTalks] = React.useState([] as ITalks[]);
 
+  const loadTalks = () => {
+    localDB.talks
+      .orderBy("last_modified")
+      .reverse()
+      .toArray((talks) => {
+        setTalks(talks);
+      });
+  };
+
   useEffect(() => {
     if (open) {
-      localDB.talks
-        .orderBy("last_modified")
-        .reverse()
-        .toArray((talks) => {
-          setTalks(talks);
-        });
+      loadTalks();
     }
   }, [open]);
 
@@ -64,6 +68,7 @@ export const TalkListDialog = () => {
           .first()
           .then((y) => {
             if (y === undefined) {
+              delete x.id;
               localDB.talks.add(x);
             } else {
               get_record(x.TalkID).modify({
@@ -74,6 +79,7 @@ export const TalkListDialog = () => {
           });
       }
     });
+    loadTalks();
   };
 
   const list = talks.map((x) => {
