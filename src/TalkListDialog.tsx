@@ -97,7 +97,7 @@ export const TalkListDialog = () => {
     return (
       <>
         <ListItem button key={x.TalkID}>
-          <div>
+          <div className="talklistTexts">
             <strong>{datetimeToStr(x.last_modified!)}</strong>
             <br />
             {x.first_line}
