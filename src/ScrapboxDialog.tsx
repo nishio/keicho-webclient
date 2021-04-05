@@ -104,30 +104,29 @@ export const ScrapboxDialog = () => {
         aria-labelledby="form-dialog-title"
         fullWidth={true}
         fullScreen={true}
+        className="scrapbox-dialog"
       >
         <DialogTitle id="form-dialog-title">Export for Scrapbox</DialogTitle>
         <DialogContent style={{ padding: "0px 24px" }}>
           {/* <DialogContentText>...</DialogContentText> */}
           <div className="dialog-inputs">
-            <div>
+            <div className="input-icon">
               <TextField
                 label="Robot Icon"
                 defaultValue={roboIcon}
                 onChange={onChangeRoboIcon}
                 variant="outlined"
-                className="input-icon"
               />
             </div>
-            <div>
+            <div className="input-icon">
               <TextField
                 label="Human Icon"
                 defaultValue={humanIcon}
                 onChange={onChangeHumanIcon}
                 variant="outlined"
-                className="input-icon"
               />
             </div>
-            <div>
+            <div className="button-copy">
               <Button onClick={handleCopy} color="primary" variant="contained">
                 Copy
               </Button>
@@ -135,26 +134,24 @@ export const ScrapboxDialog = () => {
           </div>
 
           <div className="dialog-inputs">
-            <div>
+            <div className="input-title">
               <TextField
                 label="Title"
                 defaultValue={title}
                 onChange={onChangeProjectName}
                 variant="outlined"
                 id="title"
-                className="input-title"
               />
             </div>
-            <div>
+            <div className="input-project">
               <TextField
                 label="Project"
                 defaultValue={projectName}
                 onChange={onChangeProjectName}
                 variant="outlined"
-                className="input-project"
               />
             </div>
-            <div>
+            <div className="button-open-scrapbox">
               <Button onClick={handleOpen} color="primary" variant="contained">
                 Copy and Open Scrapbox
               </Button>

@@ -29,14 +29,41 @@ textarea {
   margin-top: 7px;
 }
 
-.input-icon {
-  width: 120px;
+div.input-icon {
+  flex-basis: 120px;
+  flex-grow: 1;
 }
-.input-title {
-  width: 300px;
+div.input-icon > div {
+  width: 100%;
 }
-.input-project {
-  width: 4em;
+
+div.button-copy {
+  flex-basis: auto;
+}
+
+div.input-title {
+  flex-basis: 300px;
+  flex-grow: 10;
+}
+div.input-title > div {
+  width: 100%;
+}
+
+div.input-project {
+  flex-basis: 4em;
+  flex-grow: 1;
+}
+div.input-project > div {
+  width: 100%;
+}
+
+div.button-open-scrapbox {
+  flex-basis: auto;
+}
+
+.scrapbox-dialog textarea {
+  margin: 0;
+  margin-top: 7px;
 }
 
 .talklistButtons {
