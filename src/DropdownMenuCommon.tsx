@@ -44,7 +44,7 @@ export const DropdownMenuCommon = (props: React.PropsWithChildren<{}>) => {
           title="New Talk"
         />
         {props.children}
-        <AutoCloseMenuItem onClick={openTalkListDialog} title="Old Talk" />
+        <AutoCloseMenuItem onClick={openTalkListDialog} title="Talk List" />
       </Menu>
     </>
   );
