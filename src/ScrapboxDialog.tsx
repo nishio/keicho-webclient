@@ -4,6 +4,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import TextField from "@material-ui/core/TextField";
 import { TextareaAutosize } from "@material-ui/core";
 import { setGlobal, useGlobal } from "reactn";
 import { updateGlobal } from "./updateGlobal";
@@ -107,45 +108,54 @@ export const ScrapboxDialog = () => {
         <DialogTitle id="form-dialog-title">Export for Scrapbox</DialogTitle>
         <DialogContent style={{ padding: "0px 24px" }}>
           {/* <DialogContentText>...</DialogContentText> */}
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div className="dialog-inputs">
             <div>
-              <label>Robo Icon: </label>
-              <input
-                type="text"
+              <TextField
+                label="Robot Icon"
                 defaultValue={roboIcon}
                 onChange={onChangeRoboIcon}
-              ></input>
+                variant="outlined"
+                className="input-icon"
+              />
             </div>
             <div>
-              <label>Human Icon: </label>
-              <input
-                type="text"
+              <TextField
+                label="Human Icon"
                 defaultValue={humanIcon}
                 onChange={onChangeHumanIcon}
-              ></input>
+                variant="outlined"
+                className="input-icon"
+              />
             </div>
             <div>
-              <Button onClick={handleCopy} color="primary">
-                Copy Text
+              <Button onClick={handleCopy} color="primary" variant="contained">
+                Copy
               </Button>
             </div>
           </div>
 
-          <div style={{ display: "flex", flexWrap: "wrap" }}>
+          <div className="dialog-inputs">
             <div>
-              <label>Project Name: </label>
-              <input
-                type="text"
+              <TextField
+                label="Title"
+                defaultValue={title}
+                onChange={onChangeProjectName}
+                variant="outlined"
+                id="title"
+                className="input-title"
+              />
+            </div>
+            <div>
+              <TextField
+                label="Project"
                 defaultValue={projectName}
                 onChange={onChangeProjectName}
-              ></input>
+                variant="outlined"
+                className="input-project"
+              />
             </div>
             <div>
-              <label>Title: </label>
-              <input type="text" defaultValue={title} id="title"></input>
-            </div>
-            <div>
-              <Button onClick={handleOpen} color="primary">
+              <Button onClick={handleOpen} color="primary" variant="contained">
                 Copy and Open Scrapbox
               </Button>
             </div>

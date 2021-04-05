@@ -16,3 +16,34 @@ textarea {
   border-bottom: 0;
   margin-bottom: 0;
 }
+
+.MuiOutlinedInput-input {
+  padding: 9px !important;
+}
+
+.dialog-inputs {
+  display: flex;
+  flex-wrap: wrap;
+}
+.dialog-inputs > div {
+  margin-top: 7px;
+}
+
+.input-icon {
+  width: 120px;
+}
+.input-title {
+  width: 300px;
+}
+.input-project {
+  width: 4em;
+}
+.talklistButtons {
+  vertical-align: top;
+}
+
+.talkList .MuiListItem-gutters {
+  padding-left: 0;
+  padding-right: 0;
+  align-items: flex-end;
+}
