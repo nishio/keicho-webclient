@@ -4,46 +4,12 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-// import { TextareaAutosize } from "@material-ui/core";
 import { getGlobal, setGlobal, useGlobal } from "reactn";
 import { APIROOT } from "./App";
 
 export const openRegroupDialog = () => {
   setGlobal({ dialog: "Regroup" });
 };
-
-// const getLines = () => {
-//   const g = getGlobal();
-//   const talkObject = g.talkObject;
-//   if (talkObject === undefined) {
-//     return;
-//   }
-
-//   const lines: string[] = [];
-//   const litsk: { [key: number]: string[] } = {};
-//   if (talkObject.line_id_to_selected_keywords) {
-//     talkObject.line_id_to_selected_keywords.forEach((x: [number, string[]]) => {
-//       litsk[x[0]] = x[1];
-//     });
-//   }
-
-//   talkObject.log.forEach((x: [number, string], i: number) => {
-//     if (x[0]) {
-//       // is user
-//       lines.push(x[1]); // x.text
-//       lines.push(""); // blankline
-//     } else {
-//       lines.push(x[1]); // x.text
-//       if (litsk[i]) {
-//         litsk[i].forEach((kw) => {
-//           lines.push(kw); // selected keywords
-//         });
-//       }
-//     }
-//   });
-
-//   return lines;
-// };
 
 const invoke = () => {
   const g = getGlobal();
@@ -73,10 +39,6 @@ export const RegroupDialog = () => {
       invoke().then((mapid) => {
         setMapID(mapid);
       });
-      // const lines = getLines();
-      // if (lines !== undefined) {
-      //   setText(lines.join("\n"));
-      // }
     }
   }, [open]);
 
@@ -94,21 +56,9 @@ export const RegroupDialog = () => {
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-        // fullWidth={true}
-        // fullScreen={true}
       >
         <DialogTitle id="form-dialog-title">Export for Regroup</DialogTitle>
         <DialogContent style={{ padding: "0px 24px" }}>
-          {/* <DialogContentText>...</DialogContentText> */}
-          {/* <TextareaAutosize
-            autoFocus
-            id="multiline"
-            style={{ width: "100%" }}
-            value={text}
-            data-testid="textarea-export-for-regroup"
-            // rowsMin={30}
-            // onChange={onChange}
-          /> */}
           {!mapid ? "generating" : null}
           {mapid ? url : null}
         </DialogContent>
