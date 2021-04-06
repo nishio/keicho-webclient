@@ -60,7 +60,6 @@ export function sendToServer(text: string, newLogs: TLogs) {
 export const _gotResponse = (newLogs: TLogs, data: any) => {
   return setGlobal({
     logs: [...newLogs, { text: data.text, user: false }],
-    lastKeywords: data.last_kw,
-    otherKeywords: data.other_kw,
+    buttons: data.buttons,
   });
 };

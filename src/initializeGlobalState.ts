@@ -12,8 +12,7 @@ type TTalkObject =
 const INITIAL_GLOBAL_STATE = {
   TalkID: "",
   logs: USE_PRESET ? PRESET_LOGS : INITIAL_LOGS,
-  lastKeywords: [] as string[],
-  otherKeywords: [] as string[],
+  buttons: [] as string[],
   canInput: true,
   previousTalkID: "",
   talkObject: undefined as TTalkObject,

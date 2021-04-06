@@ -16,8 +16,7 @@ export let sendToServerPromise: Promise<unknown>;
 
 export const NewTalk = () => {
   const [logs] = useGlobal("logs");
-  const [lastKeywords] = useGlobal("lastKeywords");
-  const [otherKeywords] = useGlobal("otherKeywords");
+  const [button_labels] = useGlobal("buttons");
   const [canInput] = useGlobal("canInput");
 
   useEffect(() => {
@@ -49,10 +48,9 @@ export const NewTalk = () => {
     requestAnimationFrame(scrollToBottom);
   };
 
-  const NGKW_Buttons = lastKeywords.map((x) => {
-    const command = `👎${x}`;
+  const buttons = button_labels.map((label) => {
     const onClick = () => {
-      enter(command);
+      enter(label);
       focusOnTextarea();
     };
     return (
@@ -60,38 +58,19 @@ export const NewTalk = () => {
         size="small"
         variant="contained"
         onClick={onClick}
-        key={"NGKW" + x}
+        key={"button_" + label}
       >
-        {command}
+        {label}
       </Button>
     );
   });
-  const UPKW_Buttons = otherKeywords.slice(0, 3).map((x) => {
-    const command = `👍${x}`;
-    const onClick = () => {
-      enter(command);
-      focusOnTextarea();
-    };
-    return (
-      <Button
-        size="small"
-        variant="contained"
-        onClick={onClick}
-        key={"UPKW" + x}
-      >
-        {command}
-      </Button>
-    );
-  });
-
   const InputArea = (props: { visible: Boolean }) => {
     if (props.visible) {
       return (
         <>
           <IconButton onClick={onClickGood}>🙂</IconButton>
           <IconButton onClick={onClickNG}>🙁</IconButton>
-          {NGKW_Buttons}
-          {UPKW_Buttons}
+          {buttons}
         </>
       );
     }
