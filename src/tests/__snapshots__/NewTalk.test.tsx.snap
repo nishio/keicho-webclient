@@ -134,8 +134,7 @@ exports[`enter 1`] = `
       <span
         class="MuiButton-label"
       >
-        🙁
-        a
+        👎a
       </span>
       <span
         class="MuiTouchRipple-root"
@@ -149,8 +148,7 @@ exports[`enter 1`] = `
       <span
         class="MuiButton-label"
       >
-        👍
-        b
+        👍b
       </span>
       <span
         class="MuiTouchRipple-root"

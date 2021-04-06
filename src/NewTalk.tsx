@@ -50,8 +50,9 @@ export const NewTalk = () => {
   };
 
   const NGKW_Buttons = lastKeywords.map((x) => {
+    const command = `👎${x}`;
     const onClick = () => {
-      enter(`NGKW ${x}`);
+      enter(command);
       focusOnTextarea();
     };
     return (
@@ -61,13 +62,14 @@ export const NewTalk = () => {
         onClick={onClick}
         key={"NGKW" + x}
       >
-        🙁{x}
+        {command}
       </Button>
     );
   });
   const UPKW_Buttons = otherKeywords.slice(0, 3).map((x) => {
+    const command = `👍${x}`;
     const onClick = () => {
-      enter(`UPKW ${x}`);
+      enter(command);
       focusOnTextarea();
     };
     return (
@@ -77,7 +79,7 @@ export const NewTalk = () => {
         onClick={onClick}
         key={"UPKW" + x}
       >
-        👍{x}
+        {command}
       </Button>
     );
   });
