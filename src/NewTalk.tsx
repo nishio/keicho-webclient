@@ -92,10 +92,6 @@ export const NewTalk = () => {
           <IconButton onClick={onClickNG}>🙁</IconButton>
           {NGKW_Buttons}
           {UPKW_Buttons}
-          {/* <IconButton>🙂</IconButton>
-      <Button size="small" variant="contained">
-        kw3
-      </Button> */}
         </>
       );
     }
