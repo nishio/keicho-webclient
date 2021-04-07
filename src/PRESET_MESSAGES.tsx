@@ -3,6 +3,13 @@ export const INITIAL_LOGS = [
   { text: "あなたはこの会話で何が起きて欲しいですか？", user: false },
 ];
 
+export const EMPATHY_WRITING_INITIAL_LOGS = [
+  {
+    text: "Q1: あなたはその文章を書くことで何がどうなるとよいのでしょう？",
+    user: false,
+  },
+];
+
 // long logs for debug of CSS
 export const PRESET_LOGS = [
   { text: "あなたはこの会話で何が起きて欲しいですか？", user: false },

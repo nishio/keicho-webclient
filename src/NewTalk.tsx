@@ -11,15 +11,21 @@ import { focusOnTextarea } from "./focusOnTextarea";
 import { getNewTalkIDFromServer } from "./getNewTalkIDFromServer";
 import { TalkListDialog } from "./TalkListDialog";
 import { ShareURLDialog } from "./ShareURLDialog";
+import { get_mode } from "./get_mode";
+import { EMPATHY_WRITING_INITIAL_LOGS } from "./PRESET_MESSAGES";
 export let getNewTalkIDPromise: Promise<unknown>;
 export let sendToServerPromise: Promise<unknown>;
 
 export const NewTalk = () => {
-  const [logs] = useGlobal("logs");
+  const [logs, setLogs] = useGlobal("logs");
   const [button_labels] = useGlobal("buttons");
   const [canInput] = useGlobal("canInput");
 
   useEffect(() => {
+    console.log(get_mode());
+    if (get_mode() === "empathy_writing") {
+      setLogs(EMPATHY_WRITING_INITIAL_LOGS);
+    }
     getNewTalkIDPromise = getNewTalkIDFromServer(gotNewTalkID);
     focusOnTextarea();
   }, []);
@@ -38,6 +44,7 @@ export const NewTalk = () => {
       }
     }
   };
+
   const enter = (text: string) => {
     const newLogs = [...logs, { text: text, user: true }];
     setGlobal({ logs: newLogs });
