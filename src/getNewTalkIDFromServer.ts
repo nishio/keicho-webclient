@@ -2,13 +2,16 @@ import { ERROR_ON_SERVER } from "./PRESET_MESSAGES";
 import { setGlobal } from "reactn";
 import { APIROOT } from "./App";
 import * as Sentry from "@sentry/browser";
+import { get_mode } from "./get_mode";
 
 export const getNewTalkIDFromServer = (
   gotNewTalkID: (TalkID: string) => Promise<string>
 ): Promise<void> => {
   const transaction = Sentry.startTransaction({ name: "getNewTalkID" });
   const span = transaction.startChild({ op: "getNewTalkID" });
-  return fetch(APIROOT + "web/create/", {
+  const mode = get_mode();
+
+  return fetch(APIROOT + `web/create/?mode=${mode}`, {
     mode: "cors",
     method: "GET",
   })
