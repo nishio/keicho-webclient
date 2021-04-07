@@ -1,6 +1,6 @@
 export const USE_PRESET = false;
 export const INITIAL_LOGS = [
-  { text: "あなたはこの会話で何が起きて欲しいですか？", user: false },
+  { text: "あなたはこの会話で何がどうなるとよいのでしょう？", user: false },
 ];
 
 export const EMPATHY_WRITING_INITIAL_LOGS = [
