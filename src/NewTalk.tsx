@@ -13,6 +13,8 @@ import { TalkListDialog } from "./TalkListDialog";
 import { ShareURLDialog } from "./ShareURLDialog";
 import { get_mode } from "./get_mode";
 import { EMPATHY_WRITING_INITIAL_LOGS } from "./PRESET_MESSAGES";
+import { RegroupDialog } from "./RegroupDialog";
+import { ScrapboxDialog } from "./ScrapboxDialog";
 export let getNewTalkIDPromise: Promise<unknown>;
 export let sendToServerPromise: Promise<unknown>;
 
@@ -103,6 +105,8 @@ export const NewTalk = () => {
       <InputArea visible={canInput} />
       <hr id="bottom" />
       <TalkListDialog />
+      <RegroupDialog />
+      <ScrapboxDialog />
       <ShareURLDialog />
     </>
   );

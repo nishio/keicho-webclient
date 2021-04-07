@@ -9,6 +9,7 @@ import { TextareaAutosize } from "@material-ui/core";
 import { setGlobal, useGlobal } from "reactn";
 import { updateGlobal } from "./updateGlobal";
 import Config from "./Config";
+import { loadLogs } from "./loadLogs";
 
 export const openScrapboxDialog = () => {
   setGlobal({ dialog: "Scrapbox" });
@@ -28,10 +29,11 @@ export const ScrapboxDialog = () => {
 
   useEffect(() => {
     const lines: string[] = [];
-    if (talkObject === undefined) {
+    if (!open) {
       return;
     }
-    if (!open) {
+    if (talkObject === undefined) {
+      loadLogs(g.TalkID);
       return;
     }
     talkObject.log.forEach((x: [number, string], i: number) => {

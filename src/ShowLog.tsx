@@ -5,6 +5,7 @@ import { loadLogs } from "./loadLogs";
 import { ButtonAppBarForShowLog } from "./Menu";
 import { RegroupDialog } from "./RegroupDialog";
 import { ScrapboxDialog } from "./ScrapboxDialog";
+import { TalkListDialog } from "./TalkListDialog";
 export let loadLogsPromise: Promise<unknown>;
 export const ShowLog = (props: { talk: string }) => {
   const [logs] = useGlobal("logs");
@@ -16,6 +17,7 @@ export const ShowLog = (props: { talk: string }) => {
     <>
       <ButtonAppBarForShowLog />
       <ChatLine logs={logs}></ChatLine>
+      <TalkListDialog />
       <RegroupDialog />
       <ScrapboxDialog />
     </>
