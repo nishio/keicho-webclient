@@ -22,10 +22,12 @@ export const NewTalk = () => {
   const [canInput] = useGlobal("canInput");
 
   useEffect(() => {
-    console.log(get_mode());
     if (get_mode() === "empathy_writing") {
       setLogs(EMPATHY_WRITING_INITIAL_LOGS);
     }
+  }, [setLogs]);
+
+  useEffect(() => {
     getNewTalkIDPromise = getNewTalkIDFromServer(gotNewTalkID);
     focusOnTextarea();
   }, []);
