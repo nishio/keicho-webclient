@@ -18,11 +18,11 @@ export let getNewTalkIDPromise: Promise<unknown>;
 export let sendToServerPromise: Promise<unknown>;
 
 export const NewTalk = () => {
-  const [logs, setLogs] = useGlobal("logs");
+  const [logs] = useGlobal("logs");
   const [button_labels] = useGlobal("buttons");
   const [canInput] = useGlobal("canInput");
 
-  useEffect(update_initial_message, [setLogs]);
+  useEffect(update_initial_message, []);
 
   useEffect(() => {
     getNewTalkIDPromise = getNewTalkIDFromServer(gotNewTalkID);
