@@ -61,5 +61,6 @@ export const _gotResponse = (newLogs: TLogs, data: any) => {
   return setGlobal({
     logs: [...newLogs, { text: data.text, user: false }],
     buttons: data.buttons,
+    canInput: data.can_input,
   });
 };

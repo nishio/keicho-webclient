@@ -52,7 +52,7 @@ export const ScrapboxDialog = () => {
       }
     });
     setText(lines.join("\n"));
-  }, [roboIcon, humanIcon, open, talkObject]);
+  }, [roboIcon, humanIcon, open, talkObject, g.TalkID]);
 
   const handleClose = () => {
     Config.save();
