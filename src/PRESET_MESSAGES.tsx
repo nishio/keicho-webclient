@@ -1,3 +1,6 @@
+import { setGlobal } from "reactn";
+import { get_mode } from "./get_mode";
+
 export const USE_PRESET = false;
 export const INITIAL_LOGS = [
   { text: "あなたはこの会話で何がどうなるとよいのでしょう？", user: false },
@@ -10,6 +13,21 @@ export const EMPATHY_WRITING_INITIAL_LOGS = [
   },
 ];
 
+export const KPT_INITIAL_LOGS = [
+  {
+    text: "振り返りを支援するモードです。何について振り返りますか？",
+    user: false,
+  },
+];
+
+export const update_initial_message = () => {
+  const mode = get_mode();
+  if (mode === "empathy_writing") {
+    setGlobal({ logs: EMPATHY_WRITING_INITIAL_LOGS });
+  } else if (mode === "KPT") {
+    setGlobal({ logs: KPT_INITIAL_LOGS });
+  }
+};
 // long logs for debug of CSS
 export const PRESET_LOGS = [
   { text: "あなたはこの会話で何が起きて欲しいですか？", user: false },

@@ -11,10 +11,9 @@ import { focusOnTextarea } from "./focusOnTextarea";
 import { getNewTalkIDFromServer } from "./getNewTalkIDFromServer";
 import { TalkListDialog } from "./TalkListDialog";
 import { ShareURLDialog } from "./ShareURLDialog";
-import { get_mode } from "./get_mode";
-import { EMPATHY_WRITING_INITIAL_LOGS } from "./PRESET_MESSAGES";
 import { RegroupDialog } from "./RegroupDialog";
 import { ScrapboxDialog } from "./ScrapboxDialog";
+import { update_initial_message } from "./PRESET_MESSAGES";
 export let getNewTalkIDPromise: Promise<unknown>;
 export let sendToServerPromise: Promise<unknown>;
 
@@ -23,11 +22,7 @@ export const NewTalk = () => {
   const [button_labels] = useGlobal("buttons");
   const [canInput] = useGlobal("canInput");
 
-  useEffect(() => {
-    if (get_mode() === "empathy_writing") {
-      setLogs(EMPATHY_WRITING_INITIAL_LOGS);
-    }
-  }, [setLogs]);
+  useEffect(update_initial_message, [setLogs]);
 
   useEffect(() => {
     getNewTalkIDPromise = getNewTalkIDFromServer(gotNewTalkID);
