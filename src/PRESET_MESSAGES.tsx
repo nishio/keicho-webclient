@@ -20,12 +20,20 @@ export const KPT_INITIAL_LOGS = [
   },
 ];
 
+const VALUE_HYPOTHESIS_INITIAL_LOGS = [
+  {
+    text: "それはどんな人のためのものですか？",
+    user: false,
+  },
+];
 export const update_initial_message = () => {
   const mode = get_mode();
   if (mode === "empathy_writing") {
     setGlobal({ logs: EMPATHY_WRITING_INITIAL_LOGS });
   } else if (mode === "KPT") {
     setGlobal({ logs: KPT_INITIAL_LOGS });
+  } else if (mode === "value_hypothesis") {
+    setGlobal({ logs: VALUE_HYPOTHESIS_INITIAL_LOGS });
   }
 };
 // long logs for debug of CSS
