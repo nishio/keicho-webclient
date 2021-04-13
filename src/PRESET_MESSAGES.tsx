@@ -8,7 +8,7 @@ export const INITIAL_LOGS = [
 
 export const EMPATHY_WRITING_INITIAL_LOGS = [
   {
-    text: "Q1: あなたはその文章を書くことで何がどうなるとよいのでしょう？",
+    text: "文章作成を支援するモードです。どんな文章を書こうとしていますか？",
     user: false,
   },
 ];
@@ -22,7 +22,7 @@ export const KPT_INITIAL_LOGS = [
 
 const VALUE_HYPOTHESIS_INITIAL_LOGS = [
   {
-    text: "それはどんな人のためのものですか？",
+    text: "作る提案を支援するモードです。どんなものを作ろうと考えていますか？",
     user: false,
   },
 ];
