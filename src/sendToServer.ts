@@ -34,6 +34,8 @@ export function sendToServer(text: string, newLogs: TLogs) {
       .then((data) => {
         if (data.text !== "") {
           return _gotResponse(newLogs, data);
+        } else {
+          setGlobal({ logs: newLogs });
         }
       })
       .then(() => {
