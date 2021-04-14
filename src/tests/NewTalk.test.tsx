@@ -61,8 +61,8 @@ test("enter", async () => {
     .mockImplementation(async () => {
       sendToServerModule._gotResponse([{ user: true, text: "aaa" }], {
         text: "bbb",
-        last_kw: ["a"],
-        other_kw: ["b"],
+        buttons: ["👎a", "👍b"],
+        can_input: true,
       });
     });
 
