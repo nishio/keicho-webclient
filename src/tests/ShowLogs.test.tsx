@@ -40,6 +40,5 @@ test("show log", async () => {
   expect(screen.getByText("🙁")).toBeTruthy();
   fireEvent.click(screen.getByLabelText("menu"));
   fireEvent.click(screen.getByText("Export for Regroup"));
-  expect(screen.getByTestId("textarea-export-for-regroup")).toMatchSnapshot();
   m.mockRestore();
 });
