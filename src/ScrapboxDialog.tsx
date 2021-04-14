@@ -10,6 +10,8 @@ import { setGlobal, useGlobal } from "reactn";
 import { updateGlobal } from "./updateGlobal";
 import Config from "./Config";
 import { loadLogs } from "./loadLogs";
+import { datetimeToStr } from "./TalkListDialog";
+import { SettingsSystemDaydreamSharp } from "@material-ui/icons";
 
 export const openScrapboxDialog = () => {
   setGlobal({ dialog: "Scrapbox" });
@@ -19,6 +21,7 @@ export const ScrapboxDialog = () => {
   const [dialog, setDialog] = useGlobal("dialog");
   const open = dialog === "Scrapbox";
   const [text, setText] = React.useState("");
+  const [title, setTitle] = React.useState(datetimeToStr(Date.now()));
 
   const [g] = useGlobal();
 
@@ -51,6 +54,11 @@ export const ScrapboxDialog = () => {
         }
       }
     });
+    if (talkObject?.log[1] !== undefined) {
+      setTitle(talkObject!.log[1][1]);
+    } else {
+      setTitle("no title");
+    }
     setText(lines.join("\n"));
   }, [roboIcon, humanIcon, open, talkObject, g.TalkID]);
 
@@ -69,10 +77,14 @@ export const ScrapboxDialog = () => {
       g.config.human_icon = e.target.value;
     });
   };
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
   const onChangeProjectName = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateGlobal((g) => {
       g.config.project_name = e.target.value;
     });
+    console.log(e.target.value);
   };
 
   const handleCopy = () => {
@@ -81,15 +93,9 @@ export const ScrapboxDialog = () => {
     });
   };
 
-  let title = new Date().toDateString();
-  if (talkObject?.log[1] !== undefined) {
-    title = talkObject!.log[1][1];
-  }
-
-  const url = `https://keicho.netlify.app/#talk=${g.TalkID}`;
-  const body = encodeURIComponent(`\n\n\n${url}`);
   const handleOpen = () => {
-    const title = (document.getElementById("title") as HTMLInputElement).value;
+    const url = `https://keicho.netlify.app/#talk=${g.TalkID}`;
+    const body = encodeURIComponent(`\n\n\n${url}`);
     navigator.clipboard.writeText(text).then(() => {
       window.open(
         `https://scrapbox.io/${projectName}/${title}?body=${body}`,
@@ -140,8 +146,8 @@ export const ScrapboxDialog = () => {
             <div className="input-title">
               <TextField
                 label="Title"
-                defaultValue={title}
-                onChange={onChangeProjectName}
+                value={title}
+                onChange={onChangeTitle}
                 variant="outlined"
                 id="title"
               />
