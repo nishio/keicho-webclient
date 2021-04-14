@@ -96,6 +96,7 @@ export const ScrapboxDialog = () => {
         "_blank"
       );
     });
+    window.gtag("event", "open_scrapbox");
   };
 
   return (

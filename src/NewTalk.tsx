@@ -46,6 +46,12 @@ export const NewTalk = () => {
 
   const enter = (text: string) => {
     const newLogs = [...logs, { text: text, user: true }];
+    window.gtag("event", "enter");
+    if (logs.length < 2) {
+      window.gtag("event", "first_enter");
+    }
+    window.gtag("event", "enter_loglines", { value: logs.length });
+
     setGlobal({ logs: newLogs });
     sendToServerPromise = sendToServer(text, newLogs);
   };

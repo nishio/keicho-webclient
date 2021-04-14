@@ -42,6 +42,7 @@ export const TalkListDialog = () => {
   useEffect(() => {
     if (open) {
       loadTalks();
+      window.gtag("event", "open_talks_dialog");
     }
   }, [open]);
 
@@ -88,11 +89,13 @@ export const TalkListDialog = () => {
     }
     const showLog = () => {
       window.open(`#talk=${x.TalkID}`, "_blank");
+      window.gtag("event", "talks_dialog:show_log");
     };
     const reenter = () => {
       loadLogs(x.TalkID);
       setGlobal({ TalkID: x.TalkID });
       handleClose();
+      window.gtag("event", "talks_dialog:reenter");
     };
     return (
       <>

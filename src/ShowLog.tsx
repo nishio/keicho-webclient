@@ -12,6 +12,7 @@ export const ShowLog = (props: { talk: string }) => {
 
   useEffect(() => {
     loadLogsPromise = loadLogs(props.talk);
+    window.gtag("event", "load_logs");
   }, [props.talk]);
   return (
     <>

@@ -39,6 +39,7 @@ export const RegroupDialog = () => {
       invoke().then((mapid) => {
         setMapID(mapid);
       });
+      window.gtag("event", "create_regroup");
     }
   }, [open]);
 
@@ -49,6 +50,7 @@ export const RegroupDialog = () => {
   const url = `https://regroup.netlify.app/#/key=${mapid}`;
   const handleOpen = () => {
     window.open(url, "_blank");
+    window.gtag("event", "open_regroup");
   };
   return (
     <div>

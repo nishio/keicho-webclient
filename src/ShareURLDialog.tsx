@@ -25,6 +25,7 @@ export const ShareURLDialog = () => {
     navigator.clipboard.writeText(url).then(() => {
       setCopied(true);
     });
+    window.gtag("event", "share_url_copied");
   };
   const url = `https://keicho.netlify.app/#talk=${TalkID}`;
   return (
