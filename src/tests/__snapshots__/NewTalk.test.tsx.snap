@@ -56,15 +56,6 @@ exports[`enter 1`] = `
         class="line__contents"
       >
         <div
-          class="line__right"
-        >
-          <div
-            class="text"
-          >
-            aaa
-          </div>
-        </div>
-        <div
           class="line__left"
         >
           <figure>
@@ -79,7 +70,7 @@ exports[`enter 1`] = `
             <div
               class="text"
             >
-              bbb
+              あなたはこの会話で何がどうなるとよいのでしょう？
             </div>
           </div>
         </div>
@@ -126,37 +117,11 @@ exports[`enter 1`] = `
         class="MuiTouchRipple-root"
       />
     </button>
-    <button
-      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-      tabindex="0"
-      type="button"
-    >
-      <span
-        class="MuiButton-label"
-      >
-        👎a
-      </span>
-      <span
-        class="MuiTouchRipple-root"
-      />
-    </button>
-    <button
-      class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSizeSmall MuiButton-sizeSmall"
-      tabindex="0"
-      type="button"
-    >
-      <span
-        class="MuiButton-label"
-      >
-        👍b
-      </span>
-      <span
-        class="MuiTouchRipple-root"
-      />
-    </button>
     <hr
       id="bottom"
     />
+    <div />
+    <div />
     <div />
     <div />
   </div>

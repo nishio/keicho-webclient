@@ -29,6 +29,7 @@ afterEach(() => {
 });
 
 test("show log", async () => {
+  window.gtag = () => {};
   const m = jest
     .spyOn(loadLogsFromFirestoreModule, "loadLogsFromFirestore")
     .mockResolvedValue(MockTalkObject);

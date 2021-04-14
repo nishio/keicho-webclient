@@ -52,6 +52,7 @@ afterEach(() => {
 // });
 
 test("enter", async () => {
+  window.gtag = () => {};
   jest
     .spyOn(managePreviousTalkIDModule, "getPreviousTalkID")
     .mockResolvedValue("");
