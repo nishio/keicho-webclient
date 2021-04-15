@@ -50,7 +50,6 @@ export const NewTalk = () => {
     if (logs.length < 2) {
       window.gtag("event", "first_enter");
     }
-    window.gtag("event", "enter_loglines", { value: logs.length });
 
     setGlobal({ logs: newLogs });
     sendToServerPromise = sendToServer(text, newLogs);
