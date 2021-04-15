@@ -11,7 +11,6 @@ import { updateGlobal } from "./updateGlobal";
 import Config from "./Config";
 import { loadLogs } from "./loadLogs";
 import { datetimeToStr } from "./TalkListDialog";
-import { SettingsSystemDaydreamSharp } from "@material-ui/icons";
 
 export const openScrapboxDialog = () => {
   setGlobal({ dialog: "Scrapbox" });
