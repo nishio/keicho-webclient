@@ -26,7 +26,7 @@ export function ButtonAppBarForNewTalk() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <span onClick={openHelp}>Keicho</span>
+            <span onClick={openHelp}>Keichobot</span>
           </Typography>
           <DropdownMenuForNewTalk />
         </Toolbar>
@@ -43,7 +43,7 @@ export function ButtonAppBarForShowLog() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <span onClick={openHelp}>Keicho:Log</span>
+            <span onClick={openHelp}>Keichobot:Log</span>
           </Typography>
           <DropdownMenuForShowLog />
         </Toolbar>
