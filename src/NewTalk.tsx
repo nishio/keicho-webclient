@@ -79,8 +79,12 @@ export const NewTalk = () => {
     if (props.visible) {
       return (
         <>
-          <IconButton onClick={onClickGood}>🙂</IconButton>
-          <IconButton onClick={onClickNG}>🙁</IconButton>
+          <IconButton onClick={onClickGood} style={{ color: "black" }}>
+            🙂
+          </IconButton>
+          <IconButton onClick={onClickNG} style={{ color: "black" }}>
+            🙁
+          </IconButton>
           {buttons}
         </>
       );
