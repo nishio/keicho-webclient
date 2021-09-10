@@ -2,8 +2,8 @@ import { getGlobal, setGlobal } from "reactn";
 import { localDB } from "./localDB";
 
 export const defaultConfig = {
-  robo_icon: "[nisbot.icon]",
-  human_icon: "[nishio.icon]",
+  robo_icon: "[/nishio/kei.icon]",
+  human_icon: "[/nishio/human.icon]",
   project_name: "nishio",
 };
 
