@@ -94,7 +94,7 @@ export const ScrapboxDialog = () => {
 
   const handleOpen = () => {
     const url = `https://keicho.netlify.app/#talk=${g.TalkID}`;
-    const body = encodeURIComponent(`\n\n\n${url}`);
+    const body = encodeURIComponent(`\n\n\n${url}\n#KeichobotLog`);
     navigator.clipboard.writeText(text).then(() => {
       window.open(
         `https://scrapbox.io/${projectName}/${title}?body=${body}`,
