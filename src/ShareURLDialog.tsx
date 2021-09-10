@@ -38,7 +38,7 @@ export const ShareURLDialog = () => {
         fullScreen={false}
       >
         <DialogTitle id="form-dialog-title">Share</DialogTitle>
-        <DialogContent style={{ padding: "0px 24px" }}>
+        <DialogContent style={{ padding: "0 24px 24px 24px" }}>
           <input type="text" value={url} readOnly style={{ width: "100%" }} />
         </DialogContent>
         <DialogActions>
